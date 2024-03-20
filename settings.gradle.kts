@@ -1,20 +1,22 @@
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 pluginManagement {
     repositories {
+        maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
         google()
-        mavenCentral()
         gradlePluginPortal()
-    }
-}
-dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
-    repositories {
-        google()
         mavenCentral()
     }
 }
 
+dependencyResolutionManagement {
+    repositories {
+        google()
+        mavenCentral()
+        maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
+    }
+}
 rootProject.name = "SecureSpace"
-include(":app")
+include(":androidApp")
 include(":CoreAndroid")
 include(":CoreCompose")
 include(":CalculatorScreen")
@@ -24,3 +26,4 @@ include(":PreferencesStorage")
 include(":AndroidCryptoManager")
 include(":PasswordCryptoManager")
 include(":SecureSpaceMainScreen")
+include(":shared")

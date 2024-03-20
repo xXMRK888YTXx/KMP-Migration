@@ -29,7 +29,7 @@
             <option value="$PROJECT_DIR$/PasswordCryptoManager" />
             <option value="$PROJECT_DIR$/PreferencesStorage" />
             <option value="$PROJECT_DIR$/SecureSpaceMainScreen" />
-            <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/androidApp" />
             <option value="$PROJECT_DIR$/buildSrc" />
           </set>
         </option>

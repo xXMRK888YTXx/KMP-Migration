@@ -49,4 +49,5 @@ dependencies {
     api (Deps.Dagger.DaggerCore)
     api (Deps.Coroutines.CoroutinesAndroid)
     api (Deps.ImmutableCollection.collectionsImmutable)
+    api (project(ProjectModules.Shared))
 }

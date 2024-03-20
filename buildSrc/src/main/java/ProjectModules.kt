@@ -9,4 +9,5 @@ object ProjectModules {
     const val AndroidCryptoManager = ":AndroidCryptoManager"
     const val PasswordCryptoManager = ":PasswordCryptoManager"
     const val SecureSpaceMainScreen = ":SecureSpaceMainScreen"
+    const val Shared = ":shared"
 }

@@ -1,6 +1,7 @@
 package com.xxmrk888ytxx.securespace
 
 import android.app.Application
+import com.xxmrk888ytxx.kmp.Platform
 import com.xxmrk888ytxx.securespace.DI.AppComponent
 import com.xxmrk888ytxx.securespace.DI.DaggerAppComponent
 
