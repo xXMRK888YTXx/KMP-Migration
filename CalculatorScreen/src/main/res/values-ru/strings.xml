@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="can_t_divide_by_0">Нельзя делить на 0</string>
+    <string name="answer_is_too_large">Ответ слишком большой</string>
+    <string name="unknown_error">Неизвестная ошибка</string>
+</resources>

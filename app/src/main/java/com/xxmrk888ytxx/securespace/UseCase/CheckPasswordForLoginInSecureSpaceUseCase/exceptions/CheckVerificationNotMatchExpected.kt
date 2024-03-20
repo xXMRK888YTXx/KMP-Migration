@@ -1,0 +1,3 @@
+package com.xxmrk888ytxx.securespace.UseCase.CheckPasswordForLoginInSecureSpaceUseCase.exceptions
+
+class CheckVerificationNotMatchExpected : Exception()
