@@ -3,10 +3,10 @@
 object Deps {
     private const val MockkVersion = "1.13.4"
 
-    const val KotlinVersion = "1.9.10"
+    const val KotlinVersion = "1.9.20"
 
     object Compose {
-        const val ComposeKotlinCompiler = "1.5.3"
+        const val ComposeKotlinCompiler = "1.5.5"
         const val ComposeBom = "androidx.compose:compose-bom:2023.08.00"
         const val Ui = "androidx.compose.ui:ui"
         const val Graphics = "androidx.compose.ui:ui-graphics"

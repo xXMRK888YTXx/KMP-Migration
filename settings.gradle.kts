@@ -17,13 +17,14 @@ dependencyResolutionManagement {
 }
 rootProject.name = "SecureSpace"
 include(":androidApp")
+include(":multiplatformApp")
 include(":CoreAndroid")
 include(":CoreCompose")
 include(":CalculatorScreen")
 include(":LoginInSecureSpaceScreen")
 include(":FirstConfigurationScreen")
 include(":PreferencesStorage")
-include(":AndroidCryptoManager")
+include(":CryptoManager")
 include(":PasswordCryptoManager")
 include(":SecureSpaceMainScreen")
 include(":shared")

@@ -64,7 +64,7 @@ dependencies {
     implementation(project(ProjectModules.LoginInSecureSpaceScreen))
     implementation(project(ProjectModules.FirstConfigurationScreen))
     implementation(project(ProjectModules.PreferencesStorage))
-    implementation(project(ProjectModules.AndroidCryptoManager))
+    implementation(project(ProjectModules.CryptoManager))
     implementation(project(ProjectModules.PasswordCryptoManager))
     implementation(project(ProjectModules.SecureSpaceMainScreen))
 

@@ -1,4 +1,4 @@
-package com.xxmrk888ytxx.goals.extensions
+package com.xxmrk888ytxx.securespace.extensions
 
 import android.content.Context
 import androidx.activity.ComponentActivity
@@ -12,7 +12,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.compose.AppTheme
-import com.google.accompanist.systemuicontroller.SystemUiController
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.xxmrk888ytxx.corecompose.ComposeUiController
 import com.xxmrk888ytxx.corecompose.LocalComposeUiController

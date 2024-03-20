@@ -8,7 +8,7 @@ kotlin {
     androidTarget {
         compilations.all {
             kotlinOptions {
-                jvmTarget = "1.8"
+                jvmTarget = "17"
             }
         }
     }
@@ -30,13 +30,22 @@ kotlin {
     sourceSets {
         val desktopMain by getting
         commonMain.dependencies {
-            //put your multiplatform dependencies here
+            implementation(compose.runtime)
+            implementation(compose.foundation)
+            implementation(compose.material)
+            implementation(compose.ui)
+            implementation(compose.components.resources)
+            implementation(compose.components.uiToolingPreview)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
         }
         desktopMain.dependencies {
             //implementation(compose.desktop.currentOs)
+        }
+        androidMain.dependencies {
+            implementation(libs.compose.ui.tooling.preview)
+            implementation(libs.androidx.activity.compose)
         }
     }
 }
@@ -50,5 +59,25 @@ android {
     compileOptions {
         sourceCompatibility = Config.sourceCompatibility
         targetCompatibility = Config.targetCompatibility
+    }
+    buildTypes {
+        release {
+            isMinifyEnabled = Config.isR8ProGuardEnableForRelease
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro")
+        }
+
+        debug {
+            isMinifyEnabled = Config.isR8ProGuardEnableForDebug
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro")
+        }
+    }
+    compileOptions {
+        sourceCompatibility = Config.sourceCompatibility
+        targetCompatibility = Config.targetCompatibility
+    }
+    packaging {
+        resources.excludes.add("META-INF/*")
     }
 }

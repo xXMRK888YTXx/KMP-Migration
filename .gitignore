@@ -13,3 +13,5 @@
 .externalNativeBuild
 .cxx
 local.properties
+/multiplatformApp/build/
+/shared/build/
