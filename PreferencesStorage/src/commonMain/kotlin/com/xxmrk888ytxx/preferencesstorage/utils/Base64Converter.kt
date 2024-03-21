@@ -1,14 +1,15 @@
 package com.xxmrk888ytxx.preferencesstorage.utils
 
-import android.util.Base64
+import java.util.Base64
 
-internal class Base64Converter {
+
+internal object Base64Converter {
 
     fun bytesToString(value:ByteArray) : String {
-        return Base64.encodeToString(value,0)
+        return Base64.getEncoder().encodeToString(value)
     }
 
     fun stringToBytes(value: String) : ByteArray {
-        return Base64.decode(value,0)
+        return Base64.getDecoder().decode(value)
     }
 }

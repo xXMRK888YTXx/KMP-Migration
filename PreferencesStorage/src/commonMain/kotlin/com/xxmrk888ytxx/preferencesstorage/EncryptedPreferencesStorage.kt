@@ -3,7 +3,7 @@ package com.xxmrk888ytxx.preferencesstorage
 import androidx.datastore.preferences.core.Preferences
 import kotlinx.coroutines.flow.Flow
 
-abstract class EncryptedPreferencesStorage() {
+interface EncryptedPreferencesStorage {
 
 
     /**
@@ -21,7 +21,7 @@ abstract class EncryptedPreferencesStorage() {
      * @param key - The key by which the value will be written
      * @param value - Value to be written
      */
-    abstract suspend fun writeProperty(key: Preferences.Key<String>, value:ByteArray)
+    abstract suspend fun writeProperty(key: Preferences.Key<String>, value: ByteArray)
 
 
     /**
@@ -37,7 +37,7 @@ abstract class EncryptedPreferencesStorage() {
      *
      * @param key - The key by which the value will be written
      */
-    abstract fun  getPropertyOrNull(key: Preferences.Key<String>) : Flow<ByteArray?>
+    abstract fun getPropertyOrNull(key: Preferences.Key<String>): Flow<ByteArray?>
 
     /**
      * [Ru]
@@ -67,11 +67,10 @@ abstract class EncryptedPreferencesStorage() {
      *
      * @param key - key to check
      */
-    abstract fun isPropertyExist(key: Preferences.Key<String>) : Flow<Boolean>
+    abstract fun isPropertyExist(key: Preferences.Key<String>): Flow<Boolean>
 
-    companion object {
-        fun create(preferencesStorage: PreferencesStorage,cipher: Cipher) : EncryptedPreferencesStorage {
-            return EncryptedAndroidDataStorePreferencesStorage(preferencesStorage, cipher)
-        }
+    object Factory {
+        fun create(preferencesStorage: PreferencesStorage, cipher: Cipher) : EncryptedPreferencesStorage =
+            CommonEncryptedPreferencesStorage(preferencesStorage, cipher)
     }
 }

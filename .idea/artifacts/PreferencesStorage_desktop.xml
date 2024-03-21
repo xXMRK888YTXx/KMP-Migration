@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="PreferencesStorage-desktop">
+    <output-path>$PROJECT_DIR$/PreferencesStorage/build/libs</output-path>
+    <root id="archive" name="PreferencesStorage-desktop.jar">
+      <element id="module-output" name="SecureSpace.PreferencesStorage.desktopMain" />
+    </root>
+  </artifact>
+</component>

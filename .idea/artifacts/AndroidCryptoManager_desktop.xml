@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="AndroidCryptoManager-desktop">
+    <output-path>$PROJECT_DIR$/AndroidCryptoManager/build/libs</output-path>
+    <root id="archive" name="AndroidCryptoManager-desktop.jar">
+      <element id="module-output" name="SecureSpace.AndroidCryptoManager.desktopMain" />
+    </root>
+  </artifact>
+</component>

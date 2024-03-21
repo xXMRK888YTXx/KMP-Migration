@@ -1,6 +1,35 @@
 plugins {
-    id("com.android.library")
-    id("org.jetbrains.kotlin.android")
+    alias(libs.plugins.kotlinMultiplatform)
+    alias(libs.plugins.androidLibrary)
+    alias(libs.plugins.jetbrainsCompose)
+}
+
+kotlin {
+    jvm("desktop")
+
+
+    androidTarget {
+        compilations.all {
+            kotlinOptions {
+                jvmTarget = "17"
+            }
+        }
+    }
+
+    sourceSets {
+        val desktopMain by getting
+        commonMain.dependencies {
+            implementation(project(ProjectModules.Shared))
+            api("androidx.datastore:datastore-preferences-core:1.0.0")
+        }
+        androidMain.dependencies {
+            implementation(project(ProjectModules.CoreAndroid))
+            implementation(Deps.DataStore.dataStore)
+        }
+        desktopMain.dependencies {
+            //implementation(compose.desktop.currentOs)
+        }
+    }
 }
 
 android {
@@ -35,26 +64,10 @@ android {
         sourceCompatibility = Config.sourceCompatibility
         targetCompatibility = Config.targetCompatibility
     }
-    kotlinOptions {
-        jvmTarget = Config.jvmTarget
-    }
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
         resources.excludes.add("META-INF/*")
     }
-}
-
-dependencies {
-    api (Deps.DataStore.dataStore)
-
-    //Instrumental Test
-    androidTestImplementation (Deps.InstrumentalTest.espresso)
-    androidTestImplementation (Deps.InstrumentalTest.testRunner)
-    androidTestImplementation (Deps.InstrumentalTest.testCore)
-    androidTestImplementation (Deps.InstrumentalTest.jUnit)
-    androidTestImplementation (Deps.InstrumentalTest.testRules)
-    androidTestImplementation(Deps.TestAndroid.MockkAndroid)
-    androidTestImplementation(Deps.TestAndroid.MockkAgent)
 }

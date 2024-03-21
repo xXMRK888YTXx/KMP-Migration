@@ -1,12 +1,13 @@
 package com.xxmrk888ytxx.preferencesstorage
 
-import android.content.Context
 import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.PreferenceDataStoreFactory
 import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.core.edit
-import androidx.datastore.preferences.preferencesDataStore
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
+import java.io.File
 
 /**
  * [Ru]
@@ -17,7 +18,7 @@ import kotlinx.coroutines.flow.map
  * [En]
  * Class for managing user preferences
  */
-abstract class PreferencesStorage {
+interface PreferencesStorage {
     /**
      * [Ru]
      * Записывает значение по ключу
@@ -33,7 +34,7 @@ abstract class PreferencesStorage {
      * @param key - The key by which the value will be written
      * @param value - Value to be written
      */
-    abstract suspend fun <TYPE> writeProperty(key:Preferences.Key<TYPE>,value:TYPE)
+    suspend fun <TYPE> writeProperty(key: Preferences.Key<TYPE>, value: TYPE)
 
     /**
      * [Ru]
@@ -52,7 +53,7 @@ abstract class PreferencesStorage {
      * @param defValue - Default value that will be returned if,
      * key value will not be found
      */
-    abstract fun <TYPE> getProperty(key:Preferences.Key<TYPE>,defValue:TYPE) : Flow<TYPE>
+    fun <TYPE> getProperty(key: Preferences.Key<TYPE>, defValue: TYPE): Flow<TYPE>
 
     /**
      * [Ru]
@@ -67,7 +68,7 @@ abstract class PreferencesStorage {
      *
      * @param key - The key by which the value will be written
      */
-    abstract fun <TYPE> getPropertyOrNull(key:Preferences.Key<TYPE>) : Flow<TYPE?>
+    fun <TYPE> getPropertyOrNull(key: Preferences.Key<TYPE>): Flow<TYPE?>
 
     /**
      * [Ru]
@@ -82,7 +83,7 @@ abstract class PreferencesStorage {
      *
      * @param key - The key by which the data will be deleted.
      */
-    abstract suspend fun <TYPE> removeProperty(key:Preferences.Key<TYPE>)
+    suspend fun <TYPE> removeProperty(key: Preferences.Key<TYPE>)
 
     /**
      * [Ru]
@@ -97,11 +98,16 @@ abstract class PreferencesStorage {
      *
      * @param key - key to check
      */
-    abstract fun <TYPE> isPropertyExist(key:Preferences.Key<TYPE>) : Flow<Boolean>
+    fun <TYPE> isPropertyExist(key: Preferences.Key<TYPE>): Flow<Boolean>
 
-    class Factory {
-        fun create(fileName:String,context: Context) : PreferencesStorage {
-            return AndroidDataStorePreferencesStorage(context,fileName)
+    object Factory {
+        fun createCommon(preferenceFile: File): PreferencesStorage {
+            val dataStore: DataStore<Preferences> = PreferenceDataStoreFactory.create(
+                corruptionHandler = null,
+                migrations = listOf(),
+                scope = CoroutineScope(Dispatchers.IO + SupervisorJob())
+            ) { preferenceFile }
+            return CommonPreferencesStorage(dataStore)
         }
     }
 }
