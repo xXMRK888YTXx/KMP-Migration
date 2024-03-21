@@ -16,7 +16,6 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "SecureSpace"
-include(":androidApp")
 include(":multiplatformApp")
 include(":CoreAndroid")
 include(":CoreCompose")
