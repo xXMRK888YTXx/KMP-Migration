@@ -2,17 +2,12 @@ package com.xxmrk888ytxx.securespace.presentation
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
 import androidx.activity.viewModels
-import androidx.compose.material3.Button
-import androidx.compose.material3.Text
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.xxmrk888ytxx.calculatorscreen.CalculatorViewModel
-import com.xxmrk888ytxx.coreandroid.ShareInterfaces.Navigator
 import com.xxmrk888ytxx.firstconfigurationscreen.FirstConfigurationViewModel
 import com.xxmrk888ytxx.securespace.extensions.appComponent
 import com.xxmrk888ytxx.securespace.extensions.setContentWithTheme

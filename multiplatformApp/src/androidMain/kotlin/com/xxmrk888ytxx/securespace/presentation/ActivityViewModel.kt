@@ -3,7 +3,7 @@ package com.xxmrk888ytxx.securespace.presentation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
-import com.xxmrk888ytxx.coreandroid.ShareInterfaces.Navigator
+import com.xxmrk888ytxx.shared.Navigator
 import com.xxmrk888ytxx.coreandroid.runOnUiThread
 import com.xxmrk888ytxx.securespace.domain.OpenSecureScopeByCalculatorInputManager.OpenSecureScopeByCalculatorInputManager
 import com.xxmrk888ytxx.securespace.domain.OpenSecureScopeByCalculatorInputManager.OpenSecureScopeRequestCallBack
@@ -12,7 +12,7 @@ import javax.inject.Provider
 
 internal class ActivityViewModel @Inject constructor(
     private val openSecureScopeByCalculatorInputManager: OpenSecureScopeByCalculatorInputManager
-) : ViewModel(),Navigator,OpenSecureScopeRequestCallBack {
+) : ViewModel(), Navigator,OpenSecureScopeRequestCallBack {
 
 
     var navController:NavController? = null

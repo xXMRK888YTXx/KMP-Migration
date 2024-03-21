@@ -1,9 +1,7 @@
 package com.xxmrk888ytxx.securespace.presentation
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
@@ -11,7 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
-import com.xxmrk888ytxx.coreandroid.ShareInterfaces.Navigator
+import com.xxmrk888ytxx.shared.Navigator
 import com.xxmrk888ytxx.corecompose.LocalNavigator
 
 

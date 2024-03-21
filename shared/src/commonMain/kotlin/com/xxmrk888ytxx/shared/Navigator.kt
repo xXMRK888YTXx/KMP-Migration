@@ -1,4 +1,4 @@
-package com.xxmrk888ytxx.coreandroid.ShareInterfaces
+package com.xxmrk888ytxx.shared
 
 interface Navigator {
 

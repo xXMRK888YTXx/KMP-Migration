@@ -1,6 +1,6 @@
 package com.xxmrk888ytxx.securespace.glue.FirstConfigurationScreen
 
-import com.xxmrk888ytxx.coreandroid.ShareInterfaces.Navigator
+import com.xxmrk888ytxx.shared.Navigator
 import com.xxmrk888ytxx.firstconfigurationscreen.contracts.FinishConfigurationContract
 import com.xxmrk888ytxx.securespace.domain.FirstStartStateHolder.FirstStartStateHolder
 import kotlinx.coroutines.Dispatchers
