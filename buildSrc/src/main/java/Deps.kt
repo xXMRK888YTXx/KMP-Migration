@@ -45,7 +45,7 @@ object Deps {
     }
 
     object Dagger { //https://dagger.dev/
-        const val version = "2.46.1"
+        const val version = "2.51"
         const val DaggerCore = "com.google.dagger:dagger:$version"
         const val DaggerKaptCompiler = "com.google.dagger:dagger-compiler:$version"
         const val DaggerKaptPlugin = "kotlin-kapt"

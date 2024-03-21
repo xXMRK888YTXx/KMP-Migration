@@ -8,6 +8,12 @@
       <entry key="app">
         <State />
       </entry>
+      <entry key="multiplatformApp">
+        <State />
+      </entry>
+      <entry key="shared">
+        <State />
+      </entry>
     </value>
   </component>
 </project>

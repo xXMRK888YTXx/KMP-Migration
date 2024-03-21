@@ -20,10 +20,10 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/AndroidCryptoManager" />
             <option value="$PROJECT_DIR$/CalculatorScreen" />
             <option value="$PROJECT_DIR$/CoreAndroid" />
             <option value="$PROJECT_DIR$/CoreCompose" />
+            <option value="$PROJECT_DIR$/CryptoManager" />
             <option value="$PROJECT_DIR$/FirstConfigurationScreen" />
             <option value="$PROJECT_DIR$/LoginInSecureSpaceScreen" />
             <option value="$PROJECT_DIR$/PasswordCryptoManager" />
@@ -31,6 +31,8 @@
             <option value="$PROJECT_DIR$/SecureSpaceMainScreen" />
             <option value="$PROJECT_DIR$/androidApp" />
             <option value="$PROJECT_DIR$/buildSrc" />
+            <option value="$PROJECT_DIR$/multiplatformApp" />
+            <option value="$PROJECT_DIR$/shared" />
           </set>
         </option>
         <option name="resolveExternalAnnotations" value="false" />

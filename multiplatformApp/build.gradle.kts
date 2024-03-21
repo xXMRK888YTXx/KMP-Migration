@@ -4,7 +4,7 @@ plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsCompose)
-    id (Deps.Dagger.DaggerKaptPlugin)
+    id("com.google.devtools.ksp")
 }
 
 kotlin {
@@ -46,7 +46,7 @@ kotlin {
 
             //System Ui Controller
             implementation(Deps.Compose.SystemUiController)
-            configurations["kapt"].dependencies.add(implementation(Deps.Dagger.DaggerKaptCompiler))
+            configurations["ksp"].dependencies.add(implementation(Deps.Dagger.DaggerKaptCompiler))
         }
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -71,7 +71,7 @@ android {
     sourceSets["main"].resources.srcDirs("src/commonMain/resources")
 
     defaultConfig {
-        applicationId = "org.example.project"
+        applicationId = "com.xxmrk888ytxx.securespace"
         minSdk = Config.minSdk
         targetSdk = Config.compileSdk
         versionCode = 1
@@ -99,11 +99,11 @@ android {
 
 compose.desktop {
     application {
-        mainClass = "MainKt"
+        mainClass = "com.xxmrk888ytxx.securespace.MainKt"
 
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb,TargetFormat.Rpm)
-            packageName = "org.example.project"
+            packageName = "com.xxmrk888ytxx.securespace"
             packageVersion = "1.0.0"
         }
     }
