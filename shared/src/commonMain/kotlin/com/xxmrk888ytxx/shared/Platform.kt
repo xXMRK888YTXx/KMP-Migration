@@ -1,4 +1,4 @@
-package com.xxmrk888ytxx.kmp
+package com.xxmrk888ytxx.shared
 
 interface Platform {
     val isDesktop: Boolean

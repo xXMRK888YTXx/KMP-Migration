@@ -2,8 +2,8 @@ package com.xxmrk888ytxx.firstconfigurationscreen.models
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.pager.PagerState
-import com.xxmrk888ytxx.coreandroid.ShareInterfaces.MVI.UiEvent
 import com.xxmrk888ytxx.coreandroid.ShareInterfaces.Navigator
+import com.xxmrk888ytxx.shared.mvi.UiEvent
 import kotlinx.coroutines.CoroutineScope
 
 sealed class LocalUiEvent : UiEvent {

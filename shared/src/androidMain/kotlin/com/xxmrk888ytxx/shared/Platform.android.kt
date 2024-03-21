@@ -1,4 +1,4 @@
-package com.xxmrk888ytxx.kmp
+package com.xxmrk888ytxx.shared
 
 
 data object AndroidPlatform : Platform {

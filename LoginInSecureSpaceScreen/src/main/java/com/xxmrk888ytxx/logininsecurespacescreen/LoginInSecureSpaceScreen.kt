@@ -23,10 +23,10 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
-import com.xxmrk888ytxx.coreandroid.ShareInterfaces.MVI.UiEvent
 import com.xxmrk888ytxx.corecompose.LocalNavigator
 import com.xxmrk888ytxx.logininsecurespacescreen.models.LocalUiEvent
 import com.xxmrk888ytxx.logininsecurespacescreen.models.ScreenState
+import com.xxmrk888ytxx.shared.mvi.UiEvent
 
 @Composable
 fun LoginInSecureSpaceScreen(

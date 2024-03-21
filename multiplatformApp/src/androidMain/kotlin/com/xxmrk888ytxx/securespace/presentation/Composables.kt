@@ -23,9 +23,9 @@ fun NavGraphBuilder.calculatorScreen(
             calculatorViewModel.get()
         }
 
-        val state by viewModel.state.collectAsStateWithLifecycle(initialValue = viewModel.defValue)
+        val state by viewModel.state.collectAsStateWithLifecycle(initialValue = viewModel.defaultValue)
 
-        CalculatorScreen(screenState = state, onEvent = viewModel::handleEvent)
+        CalculatorScreen(screenState = state, onEvent = viewModel::onNewEvent)
     }
 }
 
@@ -38,10 +38,10 @@ fun NavGraphBuilder.loginInSecureSpaceScreen(
         }
 
         val state by viewModel.state.collectAsStateWithLifecycle(
-            initialValue = viewModel.defValue
+            initialValue = viewModel.defaultValue
         )
 
-        LoginInSecureSpaceScreen(state,viewModel::handleEvent)
+        LoginInSecureSpaceScreen(state,viewModel::onNewEvent)
     }
 }
 
@@ -54,12 +54,12 @@ fun NavGraphBuilder.firstConfigurationScreen(
         }
 
         val state by viewModel.state.collectAsStateWithLifecycle(
-            initialValue = viewModel.defValue
+            initialValue = viewModel.defaultValue
         )
 
         FirstConfigurationScreen(
             screenState = state,
-            onEvent = viewModel::handleEvent
+            onEvent = viewModel::onNewEvent
         )
     }
 }
@@ -72,11 +72,11 @@ fun NavGraphBuilder.secureSpaceMainScreen(
             secureSpaceMainViewModel.get()
         }
 
-        val state by viewModel.state.collectAsStateWithLifecycle(initialValue = viewModel.defValue)
+        val state by viewModel.state.collectAsStateWithLifecycle(initialValue = viewModel.defaultValue)
 
         SecureSpaceMainScreen(
             screenState = state,
-            onEvent = viewModel::handleEvent
+            onEvent = viewModel::onNewEvent
         )
     }
 }

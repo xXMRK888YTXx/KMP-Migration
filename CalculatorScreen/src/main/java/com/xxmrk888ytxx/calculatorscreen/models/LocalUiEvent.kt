@@ -1,6 +1,6 @@
 package com.xxmrk888ytxx.calculatorscreen.models
 
-import com.xxmrk888ytxx.coreandroid.ShareInterfaces.MVI.UiEvent
+import com.xxmrk888ytxx.shared.mvi.UiEvent
 
 internal sealed class LocalUiEvent : UiEvent {
 

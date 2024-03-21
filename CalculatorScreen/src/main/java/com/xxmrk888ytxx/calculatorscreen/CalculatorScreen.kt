@@ -50,8 +50,8 @@ import com.xxmrk888ytxx.calculatorscreen.models.CalculatorButtonModel
 import com.xxmrk888ytxx.calculatorscreen.models.CalculatorInputType
 import com.xxmrk888ytxx.calculatorscreen.models.LocalUiEvent
 import com.xxmrk888ytxx.calculatorscreen.models.ScreenState
-import com.xxmrk888ytxx.coreandroid.ShareInterfaces.MVI.UiEvent
 import com.xxmrk888ytxx.corecompose.LocalComposeUiController
+import com.xxmrk888ytxx.shared.mvi.UiEvent
 import kotlinx.coroutines.launch
 
 @SuppressLint("ResourceType")

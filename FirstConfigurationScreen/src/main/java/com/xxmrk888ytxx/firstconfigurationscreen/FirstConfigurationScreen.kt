@@ -27,9 +27,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
@@ -40,11 +38,11 @@ import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
-import com.xxmrk888ytxx.coreandroid.ShareInterfaces.MVI.UiEvent
 import com.xxmrk888ytxx.corecompose.LocalNavigator
 import com.xxmrk888ytxx.firstconfigurationscreen.models.LocalUiEvent
 import com.xxmrk888ytxx.firstconfigurationscreen.models.ScreenState
 import com.xxmrk888ytxx.firstconfigurationscreen.models.ScreenType
+import com.xxmrk888ytxx.shared.mvi.UiEvent
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable

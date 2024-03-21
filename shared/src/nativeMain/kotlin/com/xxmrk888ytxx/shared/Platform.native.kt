@@ -1,4 +1,4 @@
-package com.xxmrk888ytxx.kmp
+package com.xxmrk888ytxx.shared
 
 data object IOSPlatform : Platform {
     override val isDesktop: Boolean

@@ -3,15 +3,14 @@ package com.xxmrk888ytxx.calculatorscreen
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.xxmrk888ytxx.calculatorscreen.contracts.ProvideCalculationEngine
-import com.xxmrk888ytxx.calculatorscreen.engine.DefaultMathEngine
 import com.xxmrk888ytxx.calculatorscreen.engine.MathResult
 import com.xxmrk888ytxx.calculatorscreen.engine.MathSymbol
 import com.xxmrk888ytxx.calculatorscreen.models.CalculatorInputType
 import com.xxmrk888ytxx.calculatorscreen.models.LocalUiEvent
 import com.xxmrk888ytxx.calculatorscreen.models.ScreenState
-import com.xxmrk888ytxx.coreandroid.ShareInterfaces.MVI.UiEvent
-import com.xxmrk888ytxx.coreandroid.ShareInterfaces.MVI.UiModel
 import com.xxmrk888ytxx.coreandroid.getWithCast
+import com.xxmrk888ytxx.shared.mvi.UiEvent
+import com.xxmrk888ytxx.shared.mvi.UiModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -35,7 +34,7 @@ class CalculatorViewModel @Inject constructor(
 
     private val engine = provideCalculationEngine.provideEngine(calculationScope)
 
-    override fun handleEvent(event: UiEvent) {
+    override fun onNewEvent(event: UiEvent) {
         if (event !is LocalUiEvent) return
 
         when (event) {
@@ -56,7 +55,7 @@ class CalculatorViewModel @Inject constructor(
 
     private var cashedValue: ScreenState = ScreenState()
 
-    override val defValue: ScreenState
+    override val defaultValue: ScreenState
         get() = cashedValue
 
     private fun handleCalculatorInput(inputType: CalculatorInputType) = viewModelScope.launch() {

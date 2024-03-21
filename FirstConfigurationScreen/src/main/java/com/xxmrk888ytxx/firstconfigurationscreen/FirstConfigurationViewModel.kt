@@ -3,8 +3,6 @@ package com.xxmrk888ytxx.firstconfigurationscreen
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.xxmrk888ytxx.coreandroid.ShareInterfaces.MVI.UiEvent
-import com.xxmrk888ytxx.coreandroid.ShareInterfaces.MVI.UiModel
 import com.xxmrk888ytxx.coreandroid.getWithCast
 import com.xxmrk888ytxx.firstconfigurationscreen.contracts.FinishConfigurationContract
 import com.xxmrk888ytxx.firstconfigurationscreen.contracts.SetupCalculatorPasswordContract
@@ -12,37 +10,38 @@ import com.xxmrk888ytxx.firstconfigurationscreen.contracts.SetupSecureSpacePassw
 import com.xxmrk888ytxx.firstconfigurationscreen.models.LocalUiEvent
 import com.xxmrk888ytxx.firstconfigurationscreen.models.ScreenState
 import com.xxmrk888ytxx.firstconfigurationscreen.models.ScreenType
+import com.xxmrk888ytxx.shared.mvi.UiEvent
+import com.xxmrk888ytxx.shared.mvi.UiModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class FirstConfigurationViewModel @Inject constructor(
     private val setupCalculatorPasswordContract: SetupCalculatorPasswordContract,
     private val setupSecureSpacePasswordContract: SetupSecureSpacePasswordContract,
-    private val finishConfigurationContract: FinishConfigurationContract
-) : ViewModel(),UiModel<ScreenState> {
+    private val finishConfigurationContract: FinishConfigurationContract,
+) : ViewModel(), UiModel<ScreenState> {
     @OptIn(ExperimentalFoundationApi::class)
-    override fun handleEvent(event: UiEvent) {
-        if(event !is LocalUiEvent) return
+    override fun onNewEvent(event: UiEvent) {
+        if (event !is LocalUiEvent) return
 
-        when(event) {
+        when (event) {
             is LocalUiEvent.PasswordFromCalculatorInput -> {
-                if(screenTypeState.value != ScreenType.CALCULATION_PASSWORD_SETUP) return
+                if (screenTypeState.value != ScreenType.CALCULATION_PASSWORD_SETUP) return
 
-                if(event.text.isCalculatorPasswordValid()) {
+                if (event.text.isCalculatorPasswordValid()) {
                     passwordFromCalculatorState.update { event.text }
                 }
             }
 
             is LocalUiEvent.RepeatPasswordFromCalculatorInput -> {
-                if(screenTypeState.value != ScreenType.CALCULATION_PASSWORD_SETUP) return
+                if (screenTypeState.value != ScreenType.CALCULATION_PASSWORD_SETUP) return
 
-                if(event.text.isCalculatorPasswordValid()) {
+                if (event.text.isCalculatorPasswordValid()) {
                     repeatPasswordFromCalculatorState.update { event.text }
                 }
             }
@@ -57,13 +56,13 @@ class FirstConfigurationViewModel @Inject constructor(
             }
 
             is LocalUiEvent.PasswordFromSecureSpace -> {
-                if(screenTypeState.value != ScreenType.SECURE_SPACE_PASSWORD_SETUP) return
+                if (screenTypeState.value != ScreenType.SECURE_SPACE_PASSWORD_SETUP) return
 
                 passwordOfSecureSpaceState.update { event.text }
             }
 
             is LocalUiEvent.RepeatPasswordFromSecureSpace -> {
-                if(screenTypeState.value != ScreenType.SECURE_SPACE_PASSWORD_SETUP) return
+                if (screenTypeState.value != ScreenType.SECURE_SPACE_PASSWORD_SETUP) return
 
                 repeatPasswordOfSecureSpace.update { event.text }
             }
@@ -95,9 +94,13 @@ class FirstConfigurationViewModel @Inject constructor(
     private val isLoadingState = MutableStateFlow(false)
 
     override val state: Flow<ScreenState> = combine(
-        screenTypeState,passwordFromCalculatorState,repeatPasswordFromCalculatorState,passwordOfSecureSpaceState,repeatPasswordOfSecureSpace,
+        screenTypeState,
+        passwordFromCalculatorState,
+        repeatPasswordFromCalculatorState,
+        passwordOfSecureSpaceState,
+        repeatPasswordOfSecureSpace,
         isLoadingState
-    ) { flowArray:Array<Any> ->
+    ) { flowArray: Array<Any> ->
 
         ScreenState(
             screenType = flowArray.getWithCast(0),
@@ -113,18 +116,18 @@ class FirstConfigurationViewModel @Inject constructor(
 
     private var cashedScreenState = ScreenState()
 
-    override val defValue: ScreenState
+    override val defaultValue: ScreenState
         get() = cashedScreenState
 
-    private fun String.isCalculatorPasswordValid() : Boolean {
-        if(length > 10) return false
+    private fun String.isCalculatorPasswordValid(): Boolean {
+        if (length > 10) return false
 
         var isPointAlreadyBeen = false
 
         forEach {
             when {
                 it == '.' -> {
-                    if(isPointAlreadyBeen) return false
+                    if (isPointAlreadyBeen) return false
 
                     isPointAlreadyBeen = true
                 }
