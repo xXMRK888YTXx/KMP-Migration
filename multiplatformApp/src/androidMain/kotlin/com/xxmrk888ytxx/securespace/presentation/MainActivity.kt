@@ -8,7 +8,7 @@ import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.compose.rememberNavController
 import com.xxmrk888ytxx.calculatorscreen.CalculatorViewModel
-import com.xxmrk888ytxx.firstconfigurationscreen.FirstConfigurationViewModel
+import com.xxmrk888ytxx.firstconfigurationscreen.FirstConfigurationUiModel
 import com.xxmrk888ytxx.securespace.extensions.appComponent
 import com.xxmrk888ytxx.securespace.extensions.setContentWithTheme
 import com.xxmrk888ytxx.logininsecurespacescreen.LoginInSecureSpaceViewModel
@@ -29,7 +29,7 @@ internal class MainActivity : ComponentActivity() {
     lateinit var loginInSecureSpaceViewModel: Provider<LoginInSecureSpaceViewModel>
 
     @Inject
-    lateinit var firstConfigurationViewModel: Provider<FirstConfigurationViewModel>
+    lateinit var firstConfigurationUiModel: Provider<FirstConfigurationUiModel>
 
     @Inject
     lateinit var firstStartStateHolder: FirstStartStateHolder
@@ -62,7 +62,7 @@ internal class MainActivity : ComponentActivity() {
                 startDestination = if(isFirstStart) Screen.FirstConfigurationScreen.route
                 else Screen.CalculatorScreen.route
             ) {
-                firstConfigurationScreen(firstConfigurationViewModel)
+                firstConfigurationScreen(firstConfigurationUiModel)
 
                 calculatorScreen(calculatorViewModel)
 

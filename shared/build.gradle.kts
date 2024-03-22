@@ -41,7 +41,8 @@ kotlin {
             implementation(libs.kotlin.test)
         }
         desktopMain.dependencies {
-            //implementation(compose.desktop.currentOs)
+            implementation(compose.desktop.currentOs)
+            implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.0")
         }
         androidMain.dependencies {
             implementation(libs.compose.ui.tooling.preview)

@@ -8,7 +8,7 @@ import com.xxmrk888ytxx.calculatorscreen.engine.MathSymbol
 import com.xxmrk888ytxx.calculatorscreen.models.CalculatorInputType
 import com.xxmrk888ytxx.calculatorscreen.models.LocalUiEvent
 import com.xxmrk888ytxx.calculatorscreen.models.ScreenState
-import com.xxmrk888ytxx.coreandroid.getWithCast
+import com.xxmrk888ytxx.shared.getWithCast
 import com.xxmrk888ytxx.shared.mvi.UiEvent
 import com.xxmrk888ytxx.shared.mvi.UiModel
 import kotlinx.coroutines.CoroutineScope

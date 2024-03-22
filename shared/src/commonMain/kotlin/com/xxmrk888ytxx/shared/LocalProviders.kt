@@ -1,4 +1,4 @@
-package com.xxmrk888ytxx.corecompose
+package com.xxmrk888ytxx.shared
 
 import androidx.compose.runtime.compositionLocalOf
 import com.xxmrk888ytxx.shared.Navigator

@@ -1,4 +1,4 @@
-package com.xxmrk888ytxx.corecompose
+package com.xxmrk888ytxx.shared
 
 import androidx.compose.ui.graphics.Color
 

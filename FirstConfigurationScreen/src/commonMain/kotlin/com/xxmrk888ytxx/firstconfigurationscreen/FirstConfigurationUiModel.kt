@@ -1,30 +1,26 @@
 package com.xxmrk888ytxx.firstconfigurationscreen
 
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.xxmrk888ytxx.coreandroid.getWithCast
 import com.xxmrk888ytxx.firstconfigurationscreen.contracts.FinishConfigurationContract
 import com.xxmrk888ytxx.firstconfigurationscreen.contracts.SetupCalculatorPasswordContract
 import com.xxmrk888ytxx.firstconfigurationscreen.contracts.SetupSecureSpacePasswordContract
 import com.xxmrk888ytxx.firstconfigurationscreen.models.LocalUiEvent
 import com.xxmrk888ytxx.firstconfigurationscreen.models.ScreenState
 import com.xxmrk888ytxx.firstconfigurationscreen.models.ScreenType
+import com.xxmrk888ytxx.shared.getWithCast
+import com.xxmrk888ytxx.shared.mvi.MultiplatformUiModel
 import com.xxmrk888ytxx.shared.mvi.UiEvent
-import com.xxmrk888ytxx.shared.mvi.UiModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-class FirstConfigurationViewModel @Inject constructor(
+class FirstConfigurationUiModel(
     private val setupCalculatorPasswordContract: SetupCalculatorPasswordContract,
     private val setupSecureSpacePasswordContract: SetupSecureSpacePasswordContract,
     private val finishConfigurationContract: FinishConfigurationContract,
-) : ViewModel(), UiModel<ScreenState> {
+) : MultiplatformUiModel<ScreenState>() {
     @OptIn(ExperimentalFoundationApi::class)
     override fun onNewEvent(event: UiEvent) {
         if (event !is LocalUiEvent) return
@@ -51,7 +47,6 @@ class FirstConfigurationViewModel @Inject constructor(
                     screenTypeState.update { ScreenType.SECURE_SPACE_PASSWORD_SETUP }
 
                     event.pager.animateScrollToPage(event.pager.currentPage + 1)
-
                 }
             }
 
@@ -68,7 +63,7 @@ class FirstConfigurationViewModel @Inject constructor(
             }
 
             is LocalUiEvent.FinalConfigurationEvent -> {
-                viewModelScope.launch(Dispatchers.IO) {
+                uiModelScope.launch {
 
                     isLoadingState.update { true }
 
@@ -138,6 +133,8 @@ class FirstConfigurationViewModel @Inject constructor(
 
         return true
     }
+
+
 
 
 }

@@ -10,7 +10,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import com.xxmrk888ytxx.shared.Navigator
-import com.xxmrk888ytxx.corecompose.LocalNavigator
+import com.xxmrk888ytxx.shared.LocalNavigator
 
 
 /**

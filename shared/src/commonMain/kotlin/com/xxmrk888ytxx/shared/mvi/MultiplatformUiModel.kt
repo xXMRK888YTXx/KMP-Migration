@@ -1,19 +1,14 @@
 package com.xxmrk888ytxx.shared.mvi
 
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
 
 abstract class MultiplatformUiModel<STATE> : UiModel<STATE> {
 
-    protected abstract val uiModelScope: CoroutineScope
+    protected open val uiModelScope: CoroutineScope =
+        CoroutineScope(SupervisorJob() + Dispatchers.Unconfined)
 
-    protected val _state by lazy { MutableStateFlow(defaultValue) }
-    override val state: Flow<STATE> = _state.asStateFlow()
-
-    protected open fun onCleared() {
-        uiModelScope.cancel()
-    }
+    open fun onCleared() = uiModelScope.cancel()
 }

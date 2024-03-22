@@ -35,7 +35,6 @@ kotlin {
         androidMain.dependencies {
             implementation(project(ProjectModules.CalculatorScreen))
             implementation(project(ProjectModules.LoginInSecureSpaceScreen))
-            implementation(project(ProjectModules.FirstConfigurationScreen))
             implementation(project(ProjectModules.PreferencesStorage))
             implementation(project(ProjectModules.CryptoManager))
             implementation(project(ProjectModules.PasswordCryptoManager))
@@ -54,6 +53,8 @@ kotlin {
             implementation(compose.material)
             implementation(compose.ui)
             implementation(compose.components.resources)
+            implementation(project(ProjectModules.FirstConfigurationScreen))
+            implementation(project(ProjectModules.Shared))
             implementation(compose.components.uiToolingPreview)
         }
         desktopMain.dependencies {

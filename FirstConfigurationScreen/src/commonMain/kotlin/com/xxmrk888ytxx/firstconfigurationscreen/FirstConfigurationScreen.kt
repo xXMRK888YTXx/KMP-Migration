@@ -1,5 +1,4 @@
 package com.xxmrk888ytxx.firstconfigurationscreen
-
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -27,30 +26,41 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
-import com.airbnb.lottie.compose.LottieAnimation
-import com.airbnb.lottie.compose.LottieCompositionSpec
-import com.airbnb.lottie.compose.animateLottieCompositionAsState
-import com.airbnb.lottie.compose.rememberLottieComposition
-import com.xxmrk888ytxx.corecompose.LocalNavigator
 import com.xxmrk888ytxx.firstconfigurationscreen.models.LocalUiEvent
 import com.xxmrk888ytxx.firstconfigurationscreen.models.ScreenState
 import com.xxmrk888ytxx.firstconfigurationscreen.models.ScreenType
+import com.xxmrk888ytxx.shared.LocalNavigator
 import com.xxmrk888ytxx.shared.mvi.UiEvent
+import io.github.alexzhirkevich.compottie.LottieAnimation
+import io.github.alexzhirkevich.compottie.LottieCompositionSpec
+import io.github.alexzhirkevich.compottie.animateLottieCompositionAsState
+import io.github.alexzhirkevich.compottie.rememberLottieComposition
+import org.jetbrains.compose.resources.ExperimentalResourceApi
+import org.jetbrains.compose.resources.stringResource
+import securespace.firstconfigurationscreen.generated.resources.Res
+import securespace.firstconfigurationscreen.generated.resources.enter_password
+import securespace.firstconfigurationscreen.generated.resources.finish
+import securespace.firstconfigurationscreen.generated.resources.next
+import securespace.firstconfigurationscreen.generated.resources.password_must_contain_at_least_8_characters
+import securespace.firstconfigurationscreen.generated.resources.please_wait
+import securespace.firstconfigurationscreen.generated.resources.repeat_password
+import securespace.firstconfigurationscreen.generated.resources.setup_password_of_secure_space
+import securespace.firstconfigurationscreen.generated.resources.the_password_must_consist_of_numbers_0_9_and_can_consist_of_a_single_dot_the_maximum_password_length_is_10_characters
+import securespace.firstconfigurationscreen.generated.resources.you_must_create_a_password_to_open_the_secure_space_from_the_calculator
 
-@OptIn(ExperimentalFoundationApi::class)
+
+@OptIn(ExperimentalFoundationApi::class, ExperimentalResourceApi::class)
 @Composable
 fun FirstConfigurationScreen(
     screenState: ScreenState,
     onEvent: (UiEvent) -> Unit,
 ) {
-
     val pages = remember {
         ScreenType.entries
     }
@@ -83,12 +93,14 @@ fun FirstConfigurationScreen(
         bottomBar = {
             Button(
                 onClick = {
-                    when(screenState.screenType) {
+                    when (screenState.screenType) {
                         ScreenType.CALCULATION_PASSWORD_SETUP -> {
-                            onEvent(LocalUiEvent.ToSecureSpaceSetup(pager,scope))
+                            onEvent(LocalUiEvent.ToSecureSpaceSetup(pager, scope))
                         }
 
-                        ScreenType.SECURE_SPACE_PASSWORD_SETUP -> { onEvent(LocalUiEvent.FinalConfigurationEvent(navigator)) }
+                        ScreenType.SECURE_SPACE_PASSWORD_SETUP -> {
+                            onEvent(LocalUiEvent.FinalConfigurationEvent(navigator))
+                        }
                     }
                 },
                 modifier = Modifier
@@ -97,8 +109,10 @@ fun FirstConfigurationScreen(
                 enabled = isNextAvailable
             ) {
                 Text(
-                    text = if(screenState.screenType != ScreenType.SECURE_SPACE_PASSWORD_SETUP) stringResource(R.string.next)  else stringResource(
-                        R.string.finish
+                    text = if (screenState.screenType != ScreenType.SECURE_SPACE_PASSWORD_SETUP) stringResource(
+                        Res.string.next
+                    ) else stringResource(
+                        Res.string.finish
                     )
                 )
             }
@@ -129,17 +143,24 @@ fun FirstConfigurationScreen(
                     password = screenState.passwordOfSecureSpace,
                     repeatPassword = screenState.repeatPasswordOfSecureSpace,
                     onPasswordChanged = { onEvent(LocalUiEvent.PasswordFromSecureSpace(it)) },
-                    onRepeatPasswordChanged = { onEvent(LocalUiEvent.RepeatPasswordFromSecureSpace(it)) }
+                    onRepeatPasswordChanged = {
+                        onEvent(
+                            LocalUiEvent.RepeatPasswordFromSecureSpace(
+                                it
+                            )
+                        )
+                    }
                 )
             }
         }
     }
 
-    if(screenState.isLoading) {
+    if (screenState.isLoading) {
         LoadingDialog()
     }
 }
 
+@OptIn(ExperimentalResourceApi::class)
 @Composable
 fun SecureSpacePasswordSetupScreenType(
     password: String,
@@ -147,7 +168,7 @@ fun SecureSpacePasswordSetupScreenType(
     onPasswordChanged: (String) -> Unit,
     onRepeatPasswordChanged: (String) -> Unit,
 ) {
-    val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.safe_anim))
+    val composition by rememberLottieComposition(LottieCompositionSpec.JsonString(LottieAnimationString.safe))
 
     val progress by animateLottieCompositionAsState(
         composition,
@@ -165,7 +186,7 @@ fun SecureSpacePasswordSetupScreenType(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = stringResource(R.string.setup_password_of_secure_space),
+            text = stringResource(Res.string.setup_password_of_secure_space),
             style = MaterialTheme.typography.titleLarge
         )
 
@@ -178,7 +199,7 @@ fun SecureSpacePasswordSetupScreenType(
         )
 
         Text(
-            text = stringResource(R.string.password_must_contain_at_least_8_characters),
+            text = stringResource(Res.string.password_must_contain_at_least_8_characters),
             style = MaterialTheme.typography.bodyLarge
         )
 
@@ -192,7 +213,7 @@ fun SecureSpacePasswordSetupScreenType(
             StyledTextField(
                 text = password,
                 onTextChanged = onPasswordChanged,
-                label = stringResource(R.string.enter_password),
+                label = stringResource(Res.string.enter_password),
                 keyboardOptions = KeyboardOptions(
                     keyboardType = KeyboardType.Password,
                 ),
@@ -203,7 +224,7 @@ fun SecureSpacePasswordSetupScreenType(
             StyledTextField(
                 text = repeatPassword,
                 onTextChanged = onRepeatPasswordChanged,
-                label = stringResource(R.string.repeat_password),
+                label = stringResource(Res.string.repeat_password),
                 keyboardOptions = KeyboardOptions(
                     keyboardType = KeyboardType.Password
                 ),
@@ -222,7 +243,7 @@ private fun StyledTextField(
     onTextChanged: (String) -> Unit,
     label: String,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
-    visualTransformation: VisualTransformation = VisualTransformation.None
+    visualTransformation: VisualTransformation = VisualTransformation.None,
 ) {
     OutlinedTextField(
         value = text,
@@ -240,6 +261,7 @@ private fun StyledTextField(
     )
 }
 
+@OptIn(ExperimentalResourceApi::class)
 @Composable
 fun CalculationPasswordSetupScreenType(
     password: String,
@@ -247,7 +269,7 @@ fun CalculationPasswordSetupScreenType(
     onPasswordChanged: (String) -> Unit,
     onRepeatPasswordChanged: (String) -> Unit,
 ) {
-    val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.calculator_anim))
+    val composition by rememberLottieComposition(LottieCompositionSpec.JsonString(LottieAnimationString.calculator))
 
     val progress by animateLottieCompositionAsState(
         composition,
@@ -265,7 +287,7 @@ fun CalculationPasswordSetupScreenType(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = stringResource(R.string.you_must_create_a_password_to_open_the_secure_space_from_the_calculator),
+            text = stringResource(Res.string.you_must_create_a_password_to_open_the_secure_space_from_the_calculator),
             style = MaterialTheme.typography.titleLarge
         )
 
@@ -278,7 +300,7 @@ fun CalculationPasswordSetupScreenType(
         )
 
         Text(
-            text = stringResource(R.string.the_password_must_consist_of_numbers_0_9_and_can_consist_of_a_single_dot_the_maximum_password_length_is_10_characters),
+            text = stringResource(Res.string.the_password_must_consist_of_numbers_0_9_and_can_consist_of_a_single_dot_the_maximum_password_length_is_10_characters),
             style = MaterialTheme.typography.bodyLarge
         )
 
@@ -292,7 +314,7 @@ fun CalculationPasswordSetupScreenType(
             StyledTextField(
                 text = password,
                 onTextChanged = onPasswordChanged,
-                label = stringResource(R.string.enter_password),
+                label = stringResource(Res.string.enter_password),
                 keyboardOptions = KeyboardOptions(
                     keyboardType = KeyboardType.Number
                 ),
@@ -302,7 +324,7 @@ fun CalculationPasswordSetupScreenType(
             StyledTextField(
                 text = repeatPassword,
                 onTextChanged = onRepeatPasswordChanged,
-                label = stringResource(R.string.repeat_password),
+                label = stringResource(Res.string.repeat_password),
                 keyboardOptions = KeyboardOptions(
                     keyboardType = KeyboardType.Number
                 ),
@@ -312,6 +334,7 @@ fun CalculationPasswordSetupScreenType(
     }
 }
 
+@OptIn(ExperimentalResourceApi::class)
 @Composable
 fun LoadingDialog() {
     Dialog(
@@ -329,11 +352,11 @@ fun LoadingDialog() {
             Row(
                 Modifier.fillMaxWidth().padding(16.dp),
                 verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(16.dp,Alignment.CenterHorizontally)
+                horizontalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterHorizontally)
             ) {
                 CircularProgressIndicator()
 
-                Text(text = stringResource(R.string.please_wait))
+                Text(text = stringResource(Res.string.please_wait))
             }
         }
     }
