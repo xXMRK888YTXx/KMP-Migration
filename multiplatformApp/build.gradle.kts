@@ -81,12 +81,10 @@ android {
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
-            merges.apply {
-                add("*/values/strings.xml")
-                add("*/values-ru/strings.xml")
-            }
         }
         resources.excludes.add("META-INF/*")
+        resources.excludes.add("MR/ru/strings.xml")
+        resources.excludes.add("MR/base/strings.xml")
 
     }
     buildTypes {

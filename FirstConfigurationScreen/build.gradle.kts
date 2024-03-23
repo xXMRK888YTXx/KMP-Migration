@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.jetbrainsCompose)
+    id("dev.icerock.mobile.multiplatform-resources")
 }
 
 kotlin {
@@ -29,7 +30,6 @@ kotlin {
     }
 
     sourceSets {
-        val desktopMain by getting
         commonMain.dependencies {
             implementation(compose.runtime)
             implementation(compose.foundation)
@@ -43,12 +43,18 @@ kotlin {
         commonTest.dependencies {
             implementation(libs.kotlin.test)
         }
-        desktopMain.dependencies {
-            implementation(compose.desktop.currentOs)
-            implementation("io.github.alexzhirkevich:compottie:1.1.1")
+        val desktopMain by getting {
+            dependsOn(commonMain.get())
+            dependencies {
+                implementation(compose.desktop.currentOs)
+                implementation("io.github.alexzhirkevich:compottie:1.1.1")
+            }
         }
-        androidMain.dependencies {
-            implementation(Deps.Lottie.lottie)
+        val androidMain by getting {
+            dependsOn(commonMain.get())
+            dependencies {
+                implementation(Deps.Lottie.lottie)
+            }
         }
     }
 }
@@ -91,4 +97,9 @@ android {
         }
         resources.excludes.add("META-INF/*")
     }
+}
+
+
+multiplatformResources {
+    multiplatformResourcesPackage = "com.xxmrk888ytxx.firstconfigurationscreen"
 }

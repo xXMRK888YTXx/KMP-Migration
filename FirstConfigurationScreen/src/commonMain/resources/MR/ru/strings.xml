@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="you_must_create_a_password_to_open_the_secure_space_from_the_calculator">1You must create a password to open the secure space from the calculator.</string>
+    <string name="the_password_must_consist_of_numbers_0_9_and_can_consist_of_a_single_dot_the_maximum_password_length_is_10_characters">1The password must consist of numbers 0-9 and can consist of a single dot. The maximum password length is 10 characters.</string>
+    <string name="enter_password">1Enter password</string>
+    <string name="repeat_password">1Repeat password</string>
+    <string name="next">1Next</string>
+    <string name="finish">1Finish</string>
+    <string name="setup_password_of_secure_space">1Setup password of secure space</string>
+    <string name="password_must_contain_at_least_8_characters">1Password must contain at least 8 characters</string>
+    <string name="please_wait">1Please,wait</string>
+</resources>

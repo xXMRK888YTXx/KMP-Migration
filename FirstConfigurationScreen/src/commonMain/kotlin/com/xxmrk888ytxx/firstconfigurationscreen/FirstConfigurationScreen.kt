@@ -37,22 +37,12 @@ import com.xxmrk888ytxx.firstconfigurationscreen.models.ScreenState
 import com.xxmrk888ytxx.firstconfigurationscreen.models.ScreenType
 import com.xxmrk888ytxx.shared.LocalNavigator
 import com.xxmrk888ytxx.shared.mvi.UiEvent
+import dev.icerock.moko.resources.compose.stringResource
 import io.github.alexzhirkevich.compottie.LottieAnimation
 import io.github.alexzhirkevich.compottie.LottieCompositionSpec
 import io.github.alexzhirkevich.compottie.animateLottieCompositionAsState
 import io.github.alexzhirkevich.compottie.rememberLottieComposition
 import org.jetbrains.compose.resources.ExperimentalResourceApi
-import org.jetbrains.compose.resources.stringResource
-import securespace.firstconfigurationscreen.generated.resources.Res
-import securespace.firstconfigurationscreen.generated.resources.enter_password
-import securespace.firstconfigurationscreen.generated.resources.finish
-import securespace.firstconfigurationscreen.generated.resources.next
-import securespace.firstconfigurationscreen.generated.resources.password_must_contain_at_least_8_characters
-import securespace.firstconfigurationscreen.generated.resources.please_wait
-import securespace.firstconfigurationscreen.generated.resources.repeat_password
-import securespace.firstconfigurationscreen.generated.resources.setup_password_of_secure_space
-import securespace.firstconfigurationscreen.generated.resources.the_password_must_consist_of_numbers_0_9_and_can_consist_of_a_single_dot_the_maximum_password_length_is_10_characters
-import securespace.firstconfigurationscreen.generated.resources.you_must_create_a_password_to_open_the_secure_space_from_the_calculator
 
 
 @OptIn(ExperimentalFoundationApi::class, ExperimentalResourceApi::class)
@@ -64,7 +54,6 @@ fun FirstConfigurationScreen(
     val pages = remember {
         ScreenType.entries
     }
-
     val pager = rememberPagerState { pages.size }
 
     val scope = rememberCoroutineScope()
@@ -110,9 +99,9 @@ fun FirstConfigurationScreen(
             ) {
                 Text(
                     text = if (screenState.screenType != ScreenType.SECURE_SPACE_PASSWORD_SETUP) stringResource(
-                        Res.string.next
+                        MR.strings.next
                     ) else stringResource(
-                        Res.string.finish
+                        MR.strings.finish
                     )
                 )
             }
@@ -186,7 +175,7 @@ fun SecureSpacePasswordSetupScreenType(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = stringResource(Res.string.setup_password_of_secure_space),
+            text = stringResource(MR.strings.setup_password_of_secure_space),
             style = MaterialTheme.typography.titleLarge
         )
 
@@ -199,7 +188,7 @@ fun SecureSpacePasswordSetupScreenType(
         )
 
         Text(
-            text = stringResource(Res.string.password_must_contain_at_least_8_characters),
+            text = stringResource(MR.strings.password_must_contain_at_least_8_characters),
             style = MaterialTheme.typography.bodyLarge
         )
 
@@ -213,7 +202,7 @@ fun SecureSpacePasswordSetupScreenType(
             StyledTextField(
                 text = password,
                 onTextChanged = onPasswordChanged,
-                label = stringResource(Res.string.enter_password),
+                label = stringResource(MR.strings.enter_password),
                 keyboardOptions = KeyboardOptions(
                     keyboardType = KeyboardType.Password,
                 ),
@@ -224,7 +213,7 @@ fun SecureSpacePasswordSetupScreenType(
             StyledTextField(
                 text = repeatPassword,
                 onTextChanged = onRepeatPasswordChanged,
-                label = stringResource(Res.string.repeat_password),
+                label = stringResource(MR.strings.repeat_password),
                 keyboardOptions = KeyboardOptions(
                     keyboardType = KeyboardType.Password
                 ),
@@ -287,7 +276,7 @@ fun CalculationPasswordSetupScreenType(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = stringResource(Res.string.you_must_create_a_password_to_open_the_secure_space_from_the_calculator),
+            text = stringResource(MR.strings.you_must_create_a_password_to_open_the_secure_space_from_the_calculator),
             style = MaterialTheme.typography.titleLarge
         )
 
@@ -300,7 +289,7 @@ fun CalculationPasswordSetupScreenType(
         )
 
         Text(
-            text = stringResource(Res.string.the_password_must_consist_of_numbers_0_9_and_can_consist_of_a_single_dot_the_maximum_password_length_is_10_characters),
+            text = stringResource(MR.strings.the_password_must_consist_of_numbers_0_9_and_can_consist_of_a_single_dot_the_maximum_password_length_is_10_characters),
             style = MaterialTheme.typography.bodyLarge
         )
 
@@ -314,7 +303,7 @@ fun CalculationPasswordSetupScreenType(
             StyledTextField(
                 text = password,
                 onTextChanged = onPasswordChanged,
-                label = stringResource(Res.string.enter_password),
+                label = stringResource(MR.strings.enter_password),
                 keyboardOptions = KeyboardOptions(
                     keyboardType = KeyboardType.Number
                 ),
@@ -324,7 +313,7 @@ fun CalculationPasswordSetupScreenType(
             StyledTextField(
                 text = repeatPassword,
                 onTextChanged = onRepeatPasswordChanged,
-                label = stringResource(Res.string.repeat_password),
+                label = stringResource(MR.strings.repeat_password),
                 keyboardOptions = KeyboardOptions(
                     keyboardType = KeyboardType.Number
                 ),
@@ -356,7 +345,7 @@ fun LoadingDialog() {
             ) {
                 CircularProgressIndicator()
 
-                Text(text = stringResource(Res.string.please_wait))
+                Text(text = stringResource(MR.strings.please_wait))
             }
         }
     }
