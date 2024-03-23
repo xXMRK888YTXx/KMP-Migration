@@ -1,13 +1,11 @@
 package com.xxmrk888ytxx.logininsecurespacescreen
 
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.xxmrk888ytxx.androidcore.fastDebugLog
 import com.xxmrk888ytxx.logininsecurespacescreen.contracts.CheckPasswordFromSecureSpaceContract
 import com.xxmrk888ytxx.logininsecurespacescreen.models.LocalUiEvent
 import com.xxmrk888ytxx.logininsecurespacescreen.models.ScreenState
+import com.xxmrk888ytxx.shared.mvi.MultiplatformViewModel
 import com.xxmrk888ytxx.shared.mvi.UiEvent
-import com.xxmrk888ytxx.shared.mvi.UiModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -15,11 +13,10 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import javax.inject.Inject
 
-class LoginInSecureSpaceViewModel @Inject constructor(
+class LoginInSecureSpaceViewModel(
     private val checkPasswordFromSecureSpaceContract: CheckPasswordFromSecureSpaceContract
-) : ViewModel(), UiModel<ScreenState> {
+) : MultiplatformViewModel<ScreenState>() {
 
     override fun onNewEvent(event: UiEvent) {
         if(event !is LocalUiEvent) return
@@ -30,13 +27,13 @@ class LoginInSecureSpaceViewModel @Inject constructor(
             }
 
             is LocalUiEvent.UnlockEvent -> {
-                viewModelScope.launch(Dispatchers.IO) {
+                viewModelScope.launch {
                     if(checkPasswordFromSecureSpaceContract.checkPassword(inputTextState.value)) {
                         withContext(Dispatchers.Main) {
                             event.navigator.toSecureSpaceMainScreen()
                         }
                     } else {
-                        fastDebugLog("Invalid password from secure space")
+                        event.snackbarHost.showSnackbar("Incorrect password")
                     }
                 }
             }

@@ -27,7 +27,7 @@ kotlin {
             implementation(Deps.DataStore.dataStore)
         }
         desktopMain.dependencies {
-            //implementation(compose.desktop.currentOs)
+            implementation(compose.desktop.currentOs)
         }
     }
 }

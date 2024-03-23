@@ -7,3 +7,8 @@ plugins {
     id("com.google.devtools.ksp") version "1.9.20-1.0.14" apply false
 
 }
+buildscript {
+    dependencies {
+        classpath("dev.icerock.moko:resources-generator:0.23.0")
+    }
+}

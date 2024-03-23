@@ -23,7 +23,10 @@ fun NavGraphBuilder.calculatorScreen(
             calculatorViewModel.get()
         }
 
-        val state by viewModel.state.collectAsStateWithLifecycle(initialValue = viewModel.defValue)
+        val state by viewModel.state.collectAsStateWithLifecycle(
+            initialValue = viewModel.defValue,
+
+        )
 
         CalculatorScreen(screenState = state, onEvent = viewModel::handleEvent)
     }

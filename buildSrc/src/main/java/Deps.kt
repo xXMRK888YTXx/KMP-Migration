@@ -39,7 +39,7 @@ object Deps {
     }
 
     object ViewModel {
-        private const val version = "2.6.1"
+        private const val version = "2.8.0-alpha03"
         const val ViewModel = ("androidx.lifecycle:lifecycle-viewmodel:$version")
         const val ViewModelKotlin =  ("androidx.lifecycle:lifecycle-viewmodel-ktx:$version")
     }

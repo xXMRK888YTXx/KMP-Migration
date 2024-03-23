@@ -9,10 +9,10 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.compose.rememberNavController
 import com.xxmrk888ytxx.calculatorscreen.CalculatorViewModel
 import com.xxmrk888ytxx.firstconfigurationscreen.FirstConfigurationUiModel
-import com.xxmrk888ytxx.securespace.extensions.appComponent
-import com.xxmrk888ytxx.securespace.extensions.setContentWithTheme
 import com.xxmrk888ytxx.logininsecurespacescreen.LoginInSecureSpaceViewModel
 import com.xxmrk888ytxx.securespace.domain.FirstStartStateHolder.FirstStartStateHolder
+import com.xxmrk888ytxx.securespace.extensions.appComponent
+import com.xxmrk888ytxx.securespace.extensions.setContentWithTheme
 import com.xxmrk888ytxx.securespacemainscreen.SecureSpaceMainViewModel
 import javax.inject.Inject
 import javax.inject.Provider
@@ -47,7 +47,8 @@ internal class MainActivity : ComponentActivity() {
         setContentWithTheme {
 
             val isFirstStart by firstStartStateHolder.isFirstStartOfApplication.collectAsStateWithLifecycle(
-                initialValue = false
+                initialValue = false,
+                lifecycleOwner = this
             )
 
             val navController = rememberNavController()

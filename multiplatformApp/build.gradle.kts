@@ -34,7 +34,6 @@ kotlin {
         
         androidMain.dependencies {
             implementation(project(ProjectModules.CalculatorScreen))
-            implementation(project(ProjectModules.LoginInSecureSpaceScreen))
             implementation(project(ProjectModules.PreferencesStorage))
             implementation(project(ProjectModules.CryptoManager))
             implementation(project(ProjectModules.PasswordCryptoManager))
@@ -54,6 +53,7 @@ kotlin {
             implementation(compose.ui)
             implementation(compose.components.resources)
             implementation(project(ProjectModules.FirstConfigurationScreen))
+            implementation(project(ProjectModules.LoginInSecureSpaceScreen))
             implementation(project(ProjectModules.Shared))
             implementation(compose.components.uiToolingPreview)
         }
@@ -81,7 +81,13 @@ android {
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
+            merges.apply {
+                add("*/values/strings.xml")
+                add("*/values-ru/strings.xml")
+            }
         }
+        resources.excludes.add("META-INF/*")
+
     }
     buildTypes {
         getByName("release") {

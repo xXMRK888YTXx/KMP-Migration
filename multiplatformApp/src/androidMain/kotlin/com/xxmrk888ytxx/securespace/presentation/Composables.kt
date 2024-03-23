@@ -8,9 +8,9 @@ import com.xxmrk888ytxx.calculatorscreen.CalculatorScreen
 import com.xxmrk888ytxx.calculatorscreen.CalculatorViewModel
 import com.xxmrk888ytxx.firstconfigurationscreen.FirstConfigurationScreen
 import com.xxmrk888ytxx.firstconfigurationscreen.FirstConfigurationUiModel
-import com.xxmrk888ytxx.securespace.extensions.composeViewModel
 import com.xxmrk888ytxx.logininsecurespacescreen.LoginInSecureSpaceScreen
 import com.xxmrk888ytxx.logininsecurespacescreen.LoginInSecureSpaceViewModel
+import com.xxmrk888ytxx.securespace.extensions.composeViewModel
 import com.xxmrk888ytxx.securespacemainscreen.SecureSpaceMainScreen
 import com.xxmrk888ytxx.securespacemainscreen.SecureSpaceMainViewModel
 import com.xxmrk888ytxx.shared.AndroidUiModelWrapper
@@ -24,7 +24,10 @@ fun NavGraphBuilder.calculatorScreen(
             calculatorViewModel.get()
         }
 
-        val state by viewModel.state.collectAsStateWithLifecycle(initialValue = viewModel.defaultValue)
+        val state by viewModel.state.collectAsStateWithLifecycle(
+            initialValue = viewModel.defaultValue,
+            lifecycle = it.lifecycle
+        )
 
         CalculatorScreen(screenState = state, onEvent = viewModel::onNewEvent)
     }
@@ -39,7 +42,8 @@ fun NavGraphBuilder.loginInSecureSpaceScreen(
         }
 
         val state by viewModel.state.collectAsStateWithLifecycle(
-            initialValue = viewModel.defaultValue
+            initialValue = viewModel.defaultValue,
+            lifecycle = it.lifecycle
         )
 
         LoginInSecureSpaceScreen(state, viewModel::onNewEvent)
@@ -55,7 +59,8 @@ fun NavGraphBuilder.firstConfigurationScreen(
         }
 
         val state by viewModel.state.collectAsStateWithLifecycle(
-            initialValue = viewModel.defaultValue
+            initialValue = viewModel.defaultValue,
+            lifecycle = it.lifecycle
         )
 
         FirstConfigurationScreen(state, viewModel::onNewEvent)
@@ -70,7 +75,10 @@ fun NavGraphBuilder.secureSpaceMainScreen(
             secureSpaceMainViewModel.get()
         }
 
-        val state by viewModel.state.collectAsStateWithLifecycle(initialValue = viewModel.defaultValue)
+        val state by viewModel.state.collectAsStateWithLifecycle(
+            initialValue = viewModel.defaultValue,
+            lifecycle = it.lifecycle
+        )
 
         SecureSpaceMainScreen(
             screenState = state,

@@ -36,6 +36,10 @@ kotlin {
             implementation(compose.ui)
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
+            val lifecycle_version = "2.8.0-alpha03"
+            api("androidx.lifecycle:lifecycle-viewmodel:$lifecycle_version")
+            api("dev.icerock.moko:resources:0.23.0")
+            api("dev.icerock.moko:resources-compose:0.23.0")
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
@@ -64,14 +68,18 @@ android {
     buildTypes {
         release {
             isMinifyEnabled = Config.isR8ProGuardEnableForRelease
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro")
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
 
         debug {
             isMinifyEnabled = Config.isR8ProGuardEnableForDebug
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro")
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
     }
     compileOptions {
