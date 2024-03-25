@@ -58,6 +58,7 @@ kotlin {
             implementation(compose.components.uiToolingPreview)
             implementation(project(ProjectModules.SecureSpaceMainScreen))
             implementation(project(ProjectModules.MathEngine))
+            implementation(project(ProjectModules.CalculatorScreen))
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
@@ -85,9 +86,14 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
         resources.excludes.add("META-INF/*")
+
+        //MOKO
         resources.excludes.add("MR/ru/strings.xml")
         resources.excludes.add("MR/base/strings.xml")
 
+        //Compose resources
+        resources.excludes.add("values-ru/strings.xml")
+        resources.excludes.add("values/strings.xml")
     }
     buildTypes {
         getByName("release") {

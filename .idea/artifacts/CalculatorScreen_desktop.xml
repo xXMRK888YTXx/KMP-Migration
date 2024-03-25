@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="CalculatorScreen-desktop">
+    <output-path>$PROJECT_DIR$/CalculatorScreen/build/libs</output-path>
+    <root id="archive" name="CalculatorScreen-desktop.jar">
+      <element id="module-output" name="SecureSpace.CalculatorScreen.desktopMain" />
+    </root>
+  </artifact>
+</component>

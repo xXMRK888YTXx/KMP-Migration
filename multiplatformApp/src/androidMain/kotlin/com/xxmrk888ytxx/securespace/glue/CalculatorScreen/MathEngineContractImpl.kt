@@ -1,13 +1,10 @@
 package com.xxmrk888ytxx.securespace.glue.CalculatorScreen
 
 import android.content.Context
-import com.xxmrk888ytxx.calculatorscreen.R
 import com.xxmrk888ytxx.calculatorscreen.contracts.MathEngineContract
 import com.xxmrk888ytxx.calculatorscreen.engine.MathEngine
 import com.xxmrk888ytxx.calculatorscreen.engine.MathResult
 import com.xxmrk888ytxx.calculatorscreen.engine.MathSymbol
-import com.xxmrk888ytxx.calculatorscreen.exceptions.AnswerTooLargeException
-import com.xxmrk888ytxx.calculatorscreen.exceptions.DivineByZeroException
 import com.xxmrk888ytxx.calculatorscreen.models.CalculatorInputType
 import com.xxmrk888ytxx.calculatorscreen.models.CalculatorResult
 import kotlinx.coroutines.flow.Flow
@@ -25,15 +22,19 @@ class MathEngineContractImpl @Inject constructor(
     override val result: Flow<CalculatorResult> = mathEngine.result.map {
         when(it) {
             is MathResult.Error -> {
-                val errorMessage = when (it.exception) {
-                    is DivineByZeroException -> context.getString(R.string.can_t_divide_by_0)
 
-                    is AnswerTooLargeException -> context.getString(R.string.answer_is_too_large)
+                /**
+                 * val errorMessage = when (it.exception) {
+                 *                     is DivineByZeroException -> context.getString(R.string.can_t_divide_by_0)
+                 *
+                 *                     is AnswerTooLargeException -> context.getString(R.string.answer_is_too_large)
+                 *
+                 *                     else -> context.getString(R.string.unknown_error)
+                 *                 }
+                 *
+                 * */
 
-                    else -> context.getString(R.string.unknown_error)
-                }
-
-                CalculatorResult.Error(errorMessage)
+                CalculatorResult.Error("errorMessage")
             }
             is MathResult.Result -> CalculatorResult.Result(it.number.toStringExpanded())
             MathResult.Stub -> CalculatorResult.Stub

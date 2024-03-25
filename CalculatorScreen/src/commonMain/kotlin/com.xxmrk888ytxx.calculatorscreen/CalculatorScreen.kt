@@ -1,6 +1,5 @@
 package com.xxmrk888ytxx.calculatorscreen
 
-import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -35,9 +34,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.onSizeChanged
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.xxmrk888ytxx.calculatorscreen.models.CalculatorButtonModel
@@ -45,29 +42,41 @@ import com.xxmrk888ytxx.calculatorscreen.models.CalculatorInputType
 import com.xxmrk888ytxx.calculatorscreen.models.CalculatorResult
 import com.xxmrk888ytxx.calculatorscreen.models.LocalUiEvent
 import com.xxmrk888ytxx.calculatorscreen.models.ScreenState
-import com.xxmrk888ytxx.shared.LocalComposeUiController
 import com.xxmrk888ytxx.shared.mvi.UiEvent
+import org.jetbrains.compose.resources.ExperimentalResourceApi
+import org.jetbrains.compose.resources.painterResource
+import securespace.calculatorscreen.generated.resources.Res
+import securespace.calculatorscreen.generated.resources.baseline_backspace_24
+import securespace.calculatorscreen.generated.resources.c
+import securespace.calculatorscreen.generated.resources.division
+import securespace.calculatorscreen.generated.resources.equals
+import securespace.calculatorscreen.generated.resources.exponentiation
+import securespace.calculatorscreen.generated.resources.minus
+import securespace.calculatorscreen.generated.resources.multiplication
+import securespace.calculatorscreen.generated.resources.pi
+import securespace.calculatorscreen.generated.resources.plus
 
-@SuppressLint("ResourceType")
-@OptIn(ExperimentalLayoutApi::class)
+@OptIn(ExperimentalLayoutApi::class, ExperimentalResourceApi::class)
 @Composable
 fun CalculatorScreen(
     screenState: ScreenState,
     onEvent: (UiEvent) -> Unit,
 ) {
 
-    val composeUiController = LocalComposeUiController.current
+    //val composeUiController = LocalComposeUiController.current
 
     val calculatorFieldColor = if (isSystemInDarkTheme()) MaterialTheme.colorScheme.onSecondary
     else MaterialTheme.colorScheme.primary.copy(0.2f)
 
 
     LaunchedEffect(key1 = Unit, block = {
-        composeUiController.setupStatusBar(calculatorFieldColor)
+        //composeUiController.setupStatusBar(calculatorFieldColor)
     })
 
     DisposableEffect(key1 = Unit, effect = {
-        onDispose { composeUiController.resetStatusBarColor() }
+        onDispose {
+            //composeUiController.resetStatusBarColor()
+        }
     })
 
     var buttonContainerWidth by rememberSaveable { mutableIntStateOf(0) }
@@ -222,7 +231,7 @@ fun CalculatorScreen(
 
                             is CalculatorButtonModel.Icon -> {
                                 Icon(
-                                    painter = painterResource(id = it.iconId),
+                                    painter = painterResource(it.iconId),
                                     contentDescription = "",
                                     tint = contentColor,
                                     modifier = Modifier.size(24.dp)
@@ -237,30 +246,30 @@ fun CalculatorScreen(
 }
 
 
-@SuppressLint("ResourceType")
+@OptIn(ExperimentalResourceApi::class)
 private fun provideCalculatorButtons(
     numberButtonColor: Color,
     actionButtonColor: Color,
     equalsButtonColor: Color,
     onEvent: (UiEvent) -> Unit,
 ): List<CalculatorButtonModel> {
-    return listOf<CalculatorButtonModel>(
+    return listOf(
         //First row
-        CalculatorButtonModel.Icon(R.drawable.c, actionButtonColor) {
+        CalculatorButtonModel.Icon(Res.drawable.c, actionButtonColor) {
             onEvent(
                 LocalUiEvent.CalculatorInput(CalculatorInputType.CLEAR)
             )
         },
         CalculatorButtonModel.Icon(
-            R.drawable.exponentiation,
+            Res.drawable.exponentiation,
             actionButtonColor
         ) { onEvent(LocalUiEvent.CalculatorInput(CalculatorInputType.EXPONENTIATION)) },
         CalculatorButtonModel.Icon(
-            R.drawable.pi,
+            Res.drawable.pi,
             actionButtonColor
         ) { onEvent(LocalUiEvent.CalculatorInput(CalculatorInputType.PI)) },
         CalculatorButtonModel.Icon(
-            R.drawable.division,
+            Res.drawable.division,
             actionButtonColor
         ) { onEvent(LocalUiEvent.CalculatorInput(CalculatorInputType.DIVISION)) },
         //Second row
@@ -277,7 +286,7 @@ private fun provideCalculatorButtons(
             numberButtonColor
         ) { onEvent(LocalUiEvent.CalculatorInput(CalculatorInputType.NINE)) },
         CalculatorButtonModel.Icon(
-            R.drawable.multiplication,
+            Res.drawable.multiplication,
             actionButtonColor
         ) { onEvent(LocalUiEvent.CalculatorInput(CalculatorInputType.MULTIPLICATION)) },
         //Tertiary row
@@ -293,7 +302,7 @@ private fun provideCalculatorButtons(
             "6",
             numberButtonColor
         ) { onEvent(LocalUiEvent.CalculatorInput(CalculatorInputType.SIX)) },
-        CalculatorButtonModel.Icon(R.drawable.minus, actionButtonColor) {
+        CalculatorButtonModel.Icon(Res.drawable.minus, actionButtonColor) {
             onEvent(
                 LocalUiEvent.CalculatorInput(CalculatorInputType.MINUS)
             )
@@ -311,7 +320,7 @@ private fun provideCalculatorButtons(
             "3",
             numberButtonColor
         ) { onEvent(LocalUiEvent.CalculatorInput(CalculatorInputType.THREE)) },
-        CalculatorButtonModel.Icon(R.drawable.plus, actionButtonColor) {
+        CalculatorButtonModel.Icon(Res.drawable.plus, actionButtonColor) {
             onEvent(
                 LocalUiEvent.CalculatorInput(CalculatorInputType.PLUS)
             )
@@ -326,10 +335,10 @@ private fun provideCalculatorButtons(
             numberButtonColor
         ) { onEvent(LocalUiEvent.CalculatorInput(CalculatorInputType.POINT)) },
         CalculatorButtonModel.Icon(
-            R.drawable.baseline_backspace_24,
+            Res.drawable.baseline_backspace_24,
             numberButtonColor
         ) { onEvent(LocalUiEvent.CalculatorInput(CalculatorInputType.REMOVE_SYMBOL)) },
-        CalculatorButtonModel.Icon(R.drawable.equals, equalsButtonColor) {
+        CalculatorButtonModel.Icon(Res.drawable.equals, equalsButtonColor) {
             onEvent(
                 LocalUiEvent.CalculatorInput(CalculatorInputType.EQUALS)
             )
@@ -360,11 +369,4 @@ fun CalculatorButton(
             content()
         }
     }
-}
-
-
-@Preview
-@Composable
-fun CalculatorButtonPrev() {
-
 }

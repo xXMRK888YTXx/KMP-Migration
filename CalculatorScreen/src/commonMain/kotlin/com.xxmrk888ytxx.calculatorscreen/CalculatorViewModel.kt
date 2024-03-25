@@ -1,21 +1,19 @@
 package com.xxmrk888ytxx.calculatorscreen
 
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.xxmrk888ytxx.calculatorscreen.contracts.MathEngineContract
 import com.xxmrk888ytxx.calculatorscreen.models.LocalUiEvent
 import com.xxmrk888ytxx.calculatorscreen.models.ScreenState
 import com.xxmrk888ytxx.shared.getWithCast
+import com.xxmrk888ytxx.shared.mvi.MultiplatformViewModel
 import com.xxmrk888ytxx.shared.mvi.UiEvent
-import com.xxmrk888ytxx.shared.mvi.UiModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-class CalculatorViewModel @Inject constructor(
+class CalculatorViewModel(
     private val mathEngineContract: MathEngineContract,
-) : ViewModel(), UiModel<ScreenState> {
+) : MultiplatformViewModel<ScreenState>() {
 
     override fun onNewEvent(event: UiEvent) {
         if (event !is LocalUiEvent) return
