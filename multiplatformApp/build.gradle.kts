@@ -57,6 +57,7 @@ kotlin {
             implementation(project(ProjectModules.Shared))
             implementation(compose.components.uiToolingPreview)
             implementation(project(ProjectModules.SecureSpaceMainScreen))
+            implementation(project(ProjectModules.MathEngine))
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)

@@ -3,13 +3,16 @@ package com.xxmrk888ytxx.calculatorscreen.engine
 import com.ionspin.kotlin.bignum.decimal.BigDecimal
 import com.xxmrk888ytxx.calculatorscreen.exceptions.AnswerTooLargeException
 import com.xxmrk888ytxx.calculatorscreen.exceptions.InputException
-import com.xxmrk888ytxx.coreandroid.launchAndCancelChildren
+import com.xxmrk888ytxx.mathengine.CalculatorEventInterceptor
+import com.xxmrk888ytxx.shared.launchAndCancelChildren
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.cancelChildren
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.isActive
+
+const val PI = 3.141592654
 
 class DefaultMathEngine(
     private val calculationScope:CoroutineScope,
@@ -162,7 +165,7 @@ class DefaultMathEngine(
                     }
 
                     is MathSymbol.PI -> {
-                        resultDeque.add(CalculationObject.Number(BigDecimal.fromDouble(Math.PI)))
+                        resultDeque.add(CalculationObject.Number(BigDecimal.fromDouble(PI)))
                     }
 
                     else -> {

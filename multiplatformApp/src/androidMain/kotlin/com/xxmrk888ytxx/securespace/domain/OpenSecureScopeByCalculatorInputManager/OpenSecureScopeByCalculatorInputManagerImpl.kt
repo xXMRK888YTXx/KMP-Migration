@@ -1,9 +1,9 @@
 package com.xxmrk888ytxx.securespace.domain.OpenSecureScopeByCalculatorInputManager
 
 import com.ionspin.kotlin.bignum.decimal.BigDecimal
-import com.xxmrk888ytxx.calculatorscreen.engine.CalculatorEventInterceptor
 import com.xxmrk888ytxx.calculatorscreen.engine.MathEngine
 import com.xxmrk888ytxx.calculatorscreen.engine.MathSymbol
+import com.xxmrk888ytxx.mathengine.CalculatorEventInterceptor
 import com.xxmrk888ytxx.securespace.DI.qualifiers.CheckCalculatorScope
 import com.xxmrk888ytxx.securespace.domain.CalculatorPasswordManager.CalculatorPasswordManager
 import kotlinx.coroutines.CoroutineScope

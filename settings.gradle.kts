@@ -26,5 +26,6 @@ include(":PreferencesStorage")
 include(":CryptoManager")
 include(":PasswordCryptoManager")
 include(":SecureSpaceMainScreen")
+include(":MathEngine")
 include(":shared")
 

@@ -36,16 +36,13 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.xxmrk888ytxx.calculatorscreen.engine.MathResult
-import com.xxmrk888ytxx.calculatorscreen.exceptions.AnswerTooLargeException
-import com.xxmrk888ytxx.calculatorscreen.exceptions.DivineByZeroException
 import com.xxmrk888ytxx.calculatorscreen.models.CalculatorButtonModel
 import com.xxmrk888ytxx.calculatorscreen.models.CalculatorInputType
+import com.xxmrk888ytxx.calculatorscreen.models.CalculatorResult
 import com.xxmrk888ytxx.calculatorscreen.models.LocalUiEvent
 import com.xxmrk888ytxx.calculatorscreen.models.ScreenState
 import com.xxmrk888ytxx.shared.LocalComposeUiController
@@ -139,7 +136,7 @@ fun CalculatorScreen(
 
                         style = MaterialTheme.typography.displayLarge.copy(
                             fontSize = 82.sp,
-                            color = if (screenState.mathResult !is MathResult.Error) MaterialTheme.colorScheme.primary else errorColor,
+                            color = if (screenState.mathResult !is CalculatorResult.Error) MaterialTheme.colorScheme.primary else errorColor,
                             textAlign = TextAlign.End
                         ),
                         modifier = Modifier
@@ -149,25 +146,15 @@ fun CalculatorScreen(
 
                     Text(
                         text = when (screenState.mathResult) {
-                            is MathResult.Error -> {
-                                when (screenState.mathResult.exception) {
-                                    is DivineByZeroException -> stringResource(R.string.can_t_divide_by_0)
+                            is CalculatorResult.Error -> screenState.mathResult.errorString
 
-                                    is AnswerTooLargeException -> stringResource(R.string.answer_is_too_large)
+                            is CalculatorResult.Result -> screenState.mathResult.resultString
 
-                                    else -> stringResource(R.string.unknown_error)
-                                }
-                            }
-
-                            is MathResult.Result -> {
-                                screenState.mathResult.number.toStringExpanded()
-                            }
-
-                            MathResult.Stub -> ""
+                            CalculatorResult.Stub -> String()
                         },
                         style = MaterialTheme.typography.displayLarge.copy(
                             fontSize = 50.sp,
-                            color = (if (screenState.mathResult !is MathResult.Error) MaterialTheme.colorScheme.primary else errorColor).copy(
+                            color = (if (screenState.mathResult !is CalculatorResult.Error) MaterialTheme.colorScheme.primary else errorColor).copy(
                                 0.7f
                             ),
                             textAlign = TextAlign.End

@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="MathEngine-desktop">
+    <output-path>$PROJECT_DIR$/MathEngine/build/libs</output-path>
+    <root id="archive" name="MathEngine-desktop.jar">
+      <element id="module-output" name="SecureSpace.MathEngine.desktopMain" />
+    </root>
+  </artifact>
+</component>

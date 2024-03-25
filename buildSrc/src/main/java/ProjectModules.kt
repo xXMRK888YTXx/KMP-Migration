@@ -10,4 +10,5 @@ object ProjectModules {
     const val PasswordCryptoManager = ":PasswordCryptoManager"
     const val SecureSpaceMainScreen = ":SecureSpaceMainScreen"
     const val Shared = ":shared"
+    const val MathEngine: String = ":MathEngine"
 }
