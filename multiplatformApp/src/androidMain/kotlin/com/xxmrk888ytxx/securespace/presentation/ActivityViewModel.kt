@@ -2,17 +2,18 @@ package com.xxmrk888ytxx.securespace.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
-import com.xxmrk888ytxx.shared.Navigator
 import com.xxmrk888ytxx.coreandroid.runOnUiThread
 import com.xxmrk888ytxx.securespace.domain.OpenSecureScopeByCalculatorInputManager.OpenSecureScopeByCalculatorInputManager
-import com.xxmrk888ytxx.securespace.domain.OpenSecureScopeByCalculatorInputManager.OpenSecureScopeRequestCallBack
+import com.xxmrk888ytxx.shared.Navigator
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 import javax.inject.Provider
 
 internal class ActivityViewModel @Inject constructor(
     private val openSecureScopeByCalculatorInputManager: OpenSecureScopeByCalculatorInputManager
-) : ViewModel(), Navigator,OpenSecureScopeRequestCallBack {
+) : ViewModel(), Navigator {
 
 
     var navController:NavController? = null
@@ -29,11 +30,11 @@ internal class ActivityViewModel @Inject constructor(
     }
 
     init {
-        openSecureScopeByCalculatorInputManager.registerCallback(this)
-    }
-
-    override fun onRequest() {
-        toLoginInSecureSpaceScreen()
+        viewModelScope.launch {
+            openSecureScopeByCalculatorInputManager.openSecureSpaceEvent.collect {
+                toLoginInSecureSpaceScreen()
+            }
+        }
     }
 
     override fun toLoginInSecureSpaceScreen() = runOnUiThread {

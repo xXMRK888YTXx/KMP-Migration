@@ -2,6 +2,7 @@ package com.xxmrk888ytxx.securespace.DI.modules
 
 import com.xxmrk888ytxx.coreandroid.ApplicationScope
 import com.xxmrk888ytxx.securespace.DI.qualifiers.ApplicationCoroutineScopeQualifier
+import com.xxmrk888ytxx.securespace.DI.qualifiers.CalculatorScopeQualifier
 import com.xxmrk888ytxx.securespace.DI.qualifiers.CheckCalculatorScope
 import com.xxmrk888ytxx.securespace.DI.scopes.AppScope
 import dagger.Module
@@ -27,5 +28,10 @@ interface CoroutineScopeModule {
         fun provideCheckCalculatorScope() : CoroutineScope {
             return CoroutineScope(Dispatchers.IO + SupervisorJob())
         }
+
+        @Provides
+        @AppScope
+        @CalculatorScopeQualifier
+        fun provideCalculatorScope() : CoroutineScope = CoroutineScope(Dispatchers.Default + SupervisorJob())
     }
 }

@@ -3,6 +3,7 @@ package com.xxmrk888ytxx.securespace.DI
 import android.content.Context
 import com.xxmrk888ytxx.securespace.DI.modules.AndroidCoreModule
 import com.xxmrk888ytxx.securespace.DI.modules.AndroidCryptoManagerModule
+import com.xxmrk888ytxx.securespace.DI.modules.CalculatorModule
 import com.xxmrk888ytxx.securespace.DI.modules.CalculatorScreenModule
 import com.xxmrk888ytxx.securespace.DI.modules.CoroutineScopeModule
 import com.xxmrk888ytxx.securespace.DI.modules.DomainModule
@@ -30,6 +31,7 @@ import dagger.Component
         UseCasesModule::class,
         LoginInSecureSpaceScreenModule::class,
         MainSecureSpaceModule::class,
+        CalculatorModule::class
     ]
 )
 @AppScope

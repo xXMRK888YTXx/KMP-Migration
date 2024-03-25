@@ -1,8 +1,8 @@
 package com.xxmrk888ytxx.calculatorscreen.engine
 
 import android.icu.math.BigDecimal
-import com.xxmrk888ytxx.calculatorscreen.exceptions.InputException
 import com.xxmrk888ytxx.calculatorscreen.exceptions.AnswerTooLargeException
+import com.xxmrk888ytxx.calculatorscreen.exceptions.InputException
 import com.xxmrk888ytxx.coreandroid.launchAndCancelChildren
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.cancelChildren
@@ -10,7 +10,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.isActive
-import java.lang.ArithmeticException
 
 class DefaultMathEngine(
     private val calculationScope:CoroutineScope,
@@ -210,7 +209,7 @@ class DefaultMathEngine(
                 resultDeque.removeAt(mathActionPos)
 
 
-                mathActionPos = findHighPriorityMathActionPos()
+                mathActionPos = findMathActionPos()
             }
 
             //

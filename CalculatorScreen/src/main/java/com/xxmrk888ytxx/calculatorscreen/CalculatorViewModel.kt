@@ -2,7 +2,7 @@ package com.xxmrk888ytxx.calculatorscreen
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.xxmrk888ytxx.calculatorscreen.contracts.ProvideCalculationEngine
+import com.xxmrk888ytxx.calculatorscreen.engine.MathEngine
 import com.xxmrk888ytxx.calculatorscreen.engine.MathResult
 import com.xxmrk888ytxx.calculatorscreen.engine.MathSymbol
 import com.xxmrk888ytxx.calculatorscreen.models.CalculatorInputType
@@ -11,10 +11,6 @@ import com.xxmrk888ytxx.calculatorscreen.models.ScreenState
 import com.xxmrk888ytxx.shared.getWithCast
 import com.xxmrk888ytxx.shared.mvi.UiEvent
 import com.xxmrk888ytxx.shared.mvi.UiModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.first
@@ -23,16 +19,8 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class CalculatorViewModel @Inject constructor(
-    private val provideCalculationEngine: ProvideCalculationEngine
+    private val engine: MathEngine,
 ) : ViewModel(), UiModel<ScreenState> {
-
-
-    @OptIn(ExperimentalCoroutinesApi::class)
-    private val calculationScope = CoroutineScope(
-        SupervisorJob() + Dispatchers.Default
-    )
-
-    private val engine = provideCalculationEngine.provideEngine(calculationScope)
 
     override fun onNewEvent(event: UiEvent) {
         if (event !is LocalUiEvent) return
