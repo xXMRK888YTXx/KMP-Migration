@@ -28,6 +28,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
@@ -63,15 +64,15 @@ fun FirstConfigurationScreen(
     val isNextAvailable = remember(screenState) {
         when (screenState.screenType) {
             ScreenType.CALCULATION_PASSWORD_SETUP -> screenState.passwordFromCalculator == screenState.repeatPasswordFromCalculator &&
-                    screenState.passwordFromCalculator.isNotEmpty()
-                    && screenState.repeatPasswordFromCalculator.isNotEmpty()
-                    && screenState.passwordFromCalculator.lastOrNull() != '.'
-                    && screenState.repeatPasswordFromCalculator.lastOrNull() != '.'
+                    screenState.passwordFromCalculator.text.isNotEmpty()
+                    && screenState.repeatPasswordFromCalculator.text.isNotEmpty()
+                    && screenState.passwordFromCalculator.text.lastOrNull() != '.'
+                    && screenState.repeatPasswordFromCalculator.text.lastOrNull() != '.'
 
             ScreenType.SECURE_SPACE_PASSWORD_SETUP -> screenState.passwordOfSecureSpace == screenState.repeatPasswordOfSecureSpace
-                    && screenState.passwordOfSecureSpace.isNotEmpty()
-                    && screenState.repeatPasswordOfSecureSpace.isNotEmpty()
-                    && screenState.passwordOfSecureSpace.length >= 8
+                    && screenState.passwordOfSecureSpace.text.isNotEmpty()
+                    && screenState.repeatPasswordOfSecureSpace.text.isNotEmpty()
+                    && screenState.passwordOfSecureSpace.text.length >= 8
 
             else -> true
         }
@@ -152,10 +153,10 @@ fun FirstConfigurationScreen(
 @OptIn(ExperimentalResourceApi::class)
 @Composable
 fun SecureSpacePasswordSetupScreenType(
-    password: String,
-    repeatPassword: String,
-    onPasswordChanged: (String) -> Unit,
-    onRepeatPasswordChanged: (String) -> Unit,
+    password: TextFieldValue,
+    repeatPassword: TextFieldValue,
+    onPasswordChanged: (TextFieldValue) -> Unit,
+    onRepeatPasswordChanged: (TextFieldValue) -> Unit,
 ) {
     val composition by rememberLottieComposition(LottieCompositionSpec.JsonString(LottieAnimationString.safe))
 
@@ -228,8 +229,8 @@ fun SecureSpacePasswordSetupScreenType(
 @Composable
 private fun StyledTextField(
     modifier: Modifier = Modifier,
-    text: String,
-    onTextChanged: (String) -> Unit,
+    text: TextFieldValue,
+    onTextChanged: (TextFieldValue) -> Unit,
     label: String,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     visualTransformation: VisualTransformation = VisualTransformation.None,
@@ -253,10 +254,10 @@ private fun StyledTextField(
 @OptIn(ExperimentalResourceApi::class)
 @Composable
 fun CalculationPasswordSetupScreenType(
-    password: String,
-    repeatPassword: String,
-    onPasswordChanged: (String) -> Unit,
-    onRepeatPasswordChanged: (String) -> Unit,
+    password: TextFieldValue,
+    repeatPassword: TextFieldValue,
+    onPasswordChanged: (TextFieldValue) -> Unit,
+    onRepeatPasswordChanged: (TextFieldValue) -> Unit,
 ) {
     val composition by rememberLottieComposition(LottieCompositionSpec.JsonString(LottieAnimationString.calculator))
 

@@ -1,5 +1,8 @@
 package com.xxmrk888ytxx.logininsecurespacescreen.models
 
-data class ScreenState(
-    val enteredPassword:String = ""
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.ui.text.input.TextFieldValue
+
+data class ScreenState @OptIn(ExperimentalFoundationApi::class) constructor(
+    val enteredPassword: TextFieldValue = TextFieldValue(""),
 )

@@ -1,5 +1,6 @@
 package com.xxmrk888ytxx.logininsecurespacescreen
 
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.lifecycle.viewModelScope
 import com.xxmrk888ytxx.logininsecurespacescreen.contracts.CheckPasswordFromSecureSpaceContract
 import com.xxmrk888ytxx.logininsecurespacescreen.models.LocalUiEvent
@@ -28,7 +29,7 @@ class LoginInSecureSpaceViewModel(
 
             is LocalUiEvent.UnlockEvent -> {
                 viewModelScope.launch {
-                    if(checkPasswordFromSecureSpaceContract.checkPassword(inputTextState.value)) {
+                    if(checkPasswordFromSecureSpaceContract.checkPassword(inputTextState.value.text)) {
                         withContext(Dispatchers.Main) {
                             event.navigator.toSecureSpaceMainScreen()
                         }
@@ -40,7 +41,7 @@ class LoginInSecureSpaceViewModel(
         }
     }
 
-    private val inputTextState = MutableStateFlow("")
+    private val inputTextState = MutableStateFlow(TextFieldValue())
 
     override val state: Flow<ScreenState> = inputTextState.map { text ->
         ScreenState(

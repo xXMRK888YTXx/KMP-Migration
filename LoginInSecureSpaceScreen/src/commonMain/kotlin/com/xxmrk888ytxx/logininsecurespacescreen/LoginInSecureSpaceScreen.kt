@@ -1,5 +1,6 @@
 package com.xxmrk888ytxx.logininsecurespacescreen
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -32,7 +33,7 @@ import com.xxmrk888ytxx.shared.mvi.UiEvent
 import dev.icerock.moko.resources.compose.stringResource
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 
-@OptIn(ExperimentalResourceApi::class)
+@OptIn(ExperimentalResourceApi::class, ExperimentalFoundationApi::class)
 @Composable
 fun LoginInSecureSpaceScreen(
     screenState: ScreenState,
@@ -71,7 +72,9 @@ fun LoginInSecureSpaceScreen(
                 ) {
                     OutlinedTextField(
                         value = screenState.enteredPassword,
-                        onValueChange = { onEvent(LocalUiEvent.InputEvent(it)) },
+                        onValueChange = {
+                            onEvent(LocalUiEvent.InputEvent(it))
+                        },
                         modifier = Modifier.fillMaxWidth(),
                         label = {
                             Text(

@@ -1,6 +1,7 @@
 package com.xxmrk888ytxx.firstconfigurationscreen
 
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.ui.text.input.TextFieldValue
 import com.xxmrk888ytxx.firstconfigurationscreen.contracts.FinishConfigurationContract
 import com.xxmrk888ytxx.firstconfigurationscreen.contracts.SetupCalculatorPasswordContract
 import com.xxmrk888ytxx.firstconfigurationscreen.contracts.SetupSecureSpacePasswordContract
@@ -67,8 +68,8 @@ class FirstConfigurationUiModel(
 
                     isLoadingState.update { true }
 
-                    setupCalculatorPasswordContract.setupPassword(passwordFromCalculatorState.value)
-                    setupSecureSpacePasswordContract.setupPassword(passwordOfSecureSpaceState.value)
+                    setupCalculatorPasswordContract.setupPassword(passwordFromCalculatorState.value.text)
+                    setupSecureSpacePasswordContract.setupPassword(passwordOfSecureSpaceState.value.text)
 
                     finishConfigurationContract.finishConfiguration(event.navigator)
                 }
@@ -78,13 +79,13 @@ class FirstConfigurationUiModel(
 
     private val screenTypeState = MutableStateFlow(ScreenType.CALCULATION_PASSWORD_SETUP)
 
-    private val passwordFromCalculatorState = MutableStateFlow("")
+    private val passwordFromCalculatorState = MutableStateFlow(TextFieldValue())
 
-    private val repeatPasswordFromCalculatorState = MutableStateFlow("")
+    private val repeatPasswordFromCalculatorState = MutableStateFlow(TextFieldValue())
 
-    private val passwordOfSecureSpaceState = MutableStateFlow("")
+    private val passwordOfSecureSpaceState = MutableStateFlow(TextFieldValue())
 
-    private val repeatPasswordOfSecureSpace = MutableStateFlow("")
+    private val repeatPasswordOfSecureSpace = MutableStateFlow(TextFieldValue())
 
     private val isLoadingState = MutableStateFlow(false)
 
@@ -114,12 +115,12 @@ class FirstConfigurationUiModel(
     override val defaultValue: ScreenState
         get() = cashedScreenState
 
-    private fun String.isCalculatorPasswordValid(): Boolean {
-        if (length > 10) return false
+    private fun TextFieldValue.isCalculatorPasswordValid(): Boolean {
+        if (text.length > 10) return false
 
         var isPointAlreadyBeen = false
 
-        forEach {
+        text.forEach {
             when {
                 it == '.' -> {
                     if (isPointAlreadyBeen) return false
