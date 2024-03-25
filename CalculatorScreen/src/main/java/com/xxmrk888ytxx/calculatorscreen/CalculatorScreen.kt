@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -27,8 +26,8 @@ import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -36,7 +35,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.onSizeChanged
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -44,15 +42,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.xxmrk888ytxx.calculatorscreen.engine.MathResult
-import com.xxmrk888ytxx.calculatorscreen.exceptions.DivineByZeroException
 import com.xxmrk888ytxx.calculatorscreen.exceptions.AnswerTooLargeException
+import com.xxmrk888ytxx.calculatorscreen.exceptions.DivineByZeroException
 import com.xxmrk888ytxx.calculatorscreen.models.CalculatorButtonModel
 import com.xxmrk888ytxx.calculatorscreen.models.CalculatorInputType
 import com.xxmrk888ytxx.calculatorscreen.models.LocalUiEvent
 import com.xxmrk888ytxx.calculatorscreen.models.ScreenState
 import com.xxmrk888ytxx.shared.LocalComposeUiController
 import com.xxmrk888ytxx.shared.mvi.UiEvent
-import kotlinx.coroutines.launch
 
 @SuppressLint("ResourceType")
 @OptIn(ExperimentalLayoutApi::class)
@@ -76,18 +73,28 @@ fun CalculatorScreen(
         onDispose { composeUiController.resetStatusBarColor() }
     })
 
-    val density = LocalDensity.current
+    var buttonContainerWidth by rememberSaveable { mutableIntStateOf(0) }
 
-    var calculationFieldWeight by rememberSaveable {
-        mutableFloatStateOf(1f)
+    var uiContainerSize by rememberSaveable { mutableIntStateOf(0) }
+
+    val calculationFieldWeight by remember(buttonContainerWidth, uiContainerSize) {
+        mutableFloatStateOf(
+            maxOf((uiContainerSize - buttonContainerWidth).toFloat(), 1f)
+        ).also { println("buttonContainerWidth:$buttonContainerWidth uiContainerSize:$uiContainerSize  res:$it") }
     }
 
     val scrollState = rememberScrollState()
 
-    val scope = rememberCoroutineScope()
+    LaunchedEffect(key1 = screenState.calculatorInput, block = {
+        scrollState.animateScrollTo(scrollState.maxValue)
+    })
 
     Scaffold(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier
+            .fillMaxSize()
+            .onSizeChanged {
+                uiContainerSize = it.width
+            },
     ) { paddings ->
         Column(
             modifier = Modifier
@@ -123,27 +130,27 @@ fun CalculatorScreen(
                     horizontalAlignment = Alignment.End,
                 ) {
 
-                    val errorColor = if(isSystemInDarkTheme()) MaterialTheme.colorScheme.errorContainer else MaterialTheme.colorScheme.error
+                    val errorColor =
+                        if (isSystemInDarkTheme()) MaterialTheme.colorScheme.errorContainer else MaterialTheme.colorScheme.error
 
 
                     Text(
-                        text = screenState.calculatorInput + if (scrollState.canScrollForward) "  " else "",
+                        text = screenState.calculatorInput,
 
                         style = MaterialTheme.typography.displayLarge.copy(
                             fontSize = 82.sp,
-                            color = if(screenState.mathResult !is MathResult.Error) MaterialTheme.colorScheme.primary else errorColor,
+                            color = if (screenState.mathResult !is MathResult.Error) MaterialTheme.colorScheme.primary else errorColor,
                             textAlign = TextAlign.End
                         ),
                         modifier = Modifier
-                            .horizontalScroll(
-                                scrollState,
-                            ),
+                            .horizontalScroll(scrollState)
+                        ,
                     )
 
                     Text(
                         text = when (screenState.mathResult) {
                             is MathResult.Error -> {
-                                when(screenState.mathResult.exception) {
+                                when (screenState.mathResult.exception) {
                                     is DivineByZeroException -> stringResource(R.string.can_t_divide_by_0)
 
                                     is AnswerTooLargeException -> stringResource(R.string.answer_is_too_large)
@@ -151,14 +158,18 @@ fun CalculatorScreen(
                                     else -> stringResource(R.string.unknown_error)
                                 }
                             }
+
                             is MathResult.Result -> {
                                 screenState.mathResult.number.toString()
                             }
+
                             MathResult.Stub -> ""
                         },
                         style = MaterialTheme.typography.displayLarge.copy(
                             fontSize = 50.sp,
-                            color = (if(screenState.mathResult !is MathResult.Error) MaterialTheme.colorScheme.primary else errorColor).copy(0.7f),
+                            color = (if (screenState.mathResult !is MathResult.Error) MaterialTheme.colorScheme.primary else errorColor).copy(
+                                0.7f
+                            ),
                             textAlign = TextAlign.End
                         ),
                         modifier = Modifier
@@ -169,90 +180,70 @@ fun CalculatorScreen(
 
             }
 
-            Column(
+            FlowRow(
                 modifier = Modifier
-                    .weight(2f)
-                    .fillMaxSize(),
+                    .padding(vertical = 16.dp)
+                    .onSizeChanged {
+                        buttonContainerWidth = it.width
+                    },
+                maxItemsInEachRow = 4,
+                horizontalArrangement = Arrangement.spacedBy(0.dp),
             ) {
+                val numberButtonColor =
+                    if (isSystemInDarkTheme()) MaterialTheme.colorScheme.tertiaryContainer else MaterialTheme.colorScheme.tertiary.copy(
+                        0.8f
+                    )
+                val actionButtonColor =
+                    if (isSystemInDarkTheme()) MaterialTheme.colorScheme.secondaryContainer else MaterialTheme.colorScheme.secondary.copy(
+                        0.8f
+                    )
+                val equalsButtonColor =
+                    if (isSystemInDarkTheme()) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.primary.copy(
+                        0.8f
+                    )
+
+                val items = remember {
+                    provideCalculatorButtons(
+                        numberButtonColor, actionButtonColor, equalsButtonColor, onEvent
+                    )
+                }
 
 
-                Spacer(
-                    modifier = Modifier
-                        .weight(1f)
-                        .onSizeChanged {
-                            val target = with(density) { 10.dp.toPx() }
-
-                            if (it.height > target) {
-                                calculationFieldWeight =
-                                    minOf(1.25f, calculationFieldWeight + 0.05f)
-                            }
+                items.forEach {
+                    CalculatorButton(
+                        modifier = Modifier
+                            .weight(1f)
+                            .padding(3.dp),
+                        backgroundColor = it.color,
+                        action = {
+                            it.action()
                         }
-                )
+                    ) {
+                        val contentColor =
+                            if (isSystemInDarkTheme()) MaterialTheme.colorScheme.secondary
+                            else MaterialTheme.colorScheme.onSecondary
 
-                FlowRow(
-                    modifier = Modifier,
-                    maxItemsInEachRow = 4,
-                    horizontalArrangement = Arrangement.spacedBy(0.dp),
-                ) {
-                    val numberButtonColor =
-                        if (isSystemInDarkTheme()) MaterialTheme.colorScheme.tertiaryContainer else MaterialTheme.colorScheme.tertiary.copy(
-                            0.8f
-                        )
-                    val actionButtonColor =
-                        if (isSystemInDarkTheme()) MaterialTheme.colorScheme.secondaryContainer else MaterialTheme.colorScheme.secondary.copy(
-                            0.8f
-                        )
-                    val equalsButtonColor =
-                        if (isSystemInDarkTheme()) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.primary.copy(
-                            0.8f
-                        )
-
-                    val items = remember {
-                        provideCalculatorButtons(
-                            numberButtonColor, actionButtonColor, equalsButtonColor, onEvent
-                        )
-                    }
-
-
-                    items.forEach {
-                        CalculatorButton(
-                            modifier = Modifier
-                                .weight(1f)
-                                .padding(3.dp),
-                            backgroundColor = it.color,
-                            action = {
-                                scope.launch { scrollState.scrollTo(scrollState.maxValue) }
-                                it.action()
+                        when (it) {
+                            is CalculatorButtonModel.Text -> {
+                                Text(
+                                    text = it.text,
+                                    style = MaterialTheme.typography.displaySmall.copy(
+                                        color = contentColor
+                                    ),
+                                )
                             }
-                        ) {
-                            val contentColor =
-                                if (isSystemInDarkTheme()) MaterialTheme.colorScheme.secondary
-                                else MaterialTheme.colorScheme.onSecondary
 
-                            when (it) {
-                                is CalculatorButtonModel.Text -> {
-                                    Text(
-                                        text = it.text,
-                                        style = MaterialTheme.typography.displaySmall.copy(
-                                            color = contentColor
-                                        ),
-                                    )
-                                }
-
-                                is CalculatorButtonModel.Icon -> {
-                                    Icon(
-                                        painter = painterResource(id = it.iconId),
-                                        contentDescription = "",
-                                        tint = contentColor,
-                                        modifier = Modifier.size(24.dp)
-                                    )
-                                }
+                            is CalculatorButtonModel.Icon -> {
+                                Icon(
+                                    painter = painterResource(id = it.iconId),
+                                    contentDescription = "",
+                                    tint = contentColor,
+                                    modifier = Modifier.size(24.dp)
+                                )
                             }
                         }
                     }
                 }
-
-                Spacer(modifier = Modifier.weight(1f))
             }
         }
     }
