@@ -59,6 +59,9 @@ kotlin {
             implementation(project(ProjectModules.SecureSpaceMainScreen))
             implementation(project(ProjectModules.MathEngine))
             implementation(project(ProjectModules.CalculatorScreen))
+            val koin = "3.2.0"
+            implementation("io.insert-koin:koin-core:${koin}")
+
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
