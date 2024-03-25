@@ -56,6 +56,7 @@ kotlin {
             implementation(project(ProjectModules.LoginInSecureSpaceScreen))
             implementation(project(ProjectModules.Shared))
             implementation(compose.components.uiToolingPreview)
+            implementation(project(ProjectModules.SecureSpaceMainScreen))
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)

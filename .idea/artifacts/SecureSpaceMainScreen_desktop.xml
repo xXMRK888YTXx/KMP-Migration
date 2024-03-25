@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="SecureSpaceMainScreen-desktop">
+    <output-path>$PROJECT_DIR$/SecureSpaceMainScreen/build/libs</output-path>
+    <root id="archive" name="SecureSpaceMainScreen-desktop.jar">
+      <element id="module-output" name="SecureSpace.SecureSpaceMainScreen.desktopMain" />
+    </root>
+  </artifact>
+</component>

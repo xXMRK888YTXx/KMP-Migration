@@ -2,12 +2,13 @@ package com.xxmrk888ytxx.securespace.DI
 
 import android.content.Context
 import com.xxmrk888ytxx.securespace.DI.modules.AndroidCoreModule
+import com.xxmrk888ytxx.securespace.DI.modules.AndroidCryptoManagerModule
 import com.xxmrk888ytxx.securespace.DI.modules.CalculatorScreenModule
 import com.xxmrk888ytxx.securespace.DI.modules.CoroutineScopeModule
-import com.xxmrk888ytxx.securespace.DI.modules.AndroidCryptoManagerModule
 import com.xxmrk888ytxx.securespace.DI.modules.DomainModule
 import com.xxmrk888ytxx.securespace.DI.modules.FirstConfigurationScreenModule
 import com.xxmrk888ytxx.securespace.DI.modules.LoginInSecureSpaceScreenModule
+import com.xxmrk888ytxx.securespace.DI.modules.MainSecureSpaceModule
 import com.xxmrk888ytxx.securespace.DI.modules.PasswordCryptoManagerModule
 import com.xxmrk888ytxx.securespace.DI.modules.PreferencesStorageModule
 import com.xxmrk888ytxx.securespace.DI.modules.UseCasesModule
@@ -27,7 +28,8 @@ import dagger.Component
         AndroidCryptoManagerModule::class,
         PasswordCryptoManagerModule::class,
         UseCasesModule::class,
-        LoginInSecureSpaceScreenModule::class
+        LoginInSecureSpaceScreenModule::class,
+        MainSecureSpaceModule::class,
     ]
 )
 @AppScope
