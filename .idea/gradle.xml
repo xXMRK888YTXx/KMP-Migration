@@ -26,6 +26,7 @@
             <option value="$PROJECT_DIR$/CryptoManager" />
             <option value="$PROJECT_DIR$/FirstConfigurationScreen" />
             <option value="$PROJECT_DIR$/LoginInSecureSpaceScreen" />
+            <option value="$PROJECT_DIR$/MultiplatformBigDecimal" />
             <option value="$PROJECT_DIR$/PasswordCryptoManager" />
             <option value="$PROJECT_DIR$/PreferencesStorage" />
             <option value="$PROJECT_DIR$/SecureSpaceMainScreen" />

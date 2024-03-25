@@ -1,6 +1,6 @@
 package com.xxmrk888ytxx.securespace.domain.OpenSecureScopeByCalculatorInputManager
 
-import android.icu.math.BigDecimal
+import com.ionspin.kotlin.bignum.decimal.BigDecimal
 import com.xxmrk888ytxx.calculatorscreen.engine.CalculatorEventInterceptor
 import com.xxmrk888ytxx.calculatorscreen.engine.MathEngine
 import com.xxmrk888ytxx.calculatorscreen.engine.MathSymbol
@@ -31,7 +31,7 @@ class OpenSecureScopeByCalculatorInputManagerImpl @Inject constructor(
 
         override fun onInputSet(bigDecimal: BigDecimal, engine: MathEngine) {
             checkCalculatorScope.launch {
-                if(calculatorPasswordManager.checkPassword(bigDecimal.toString())) {
+                if(calculatorPasswordManager.checkPassword(bigDecimal.toStringExpanded())) {
                     _openSecureSpaceEvent.emit(Unit)
                 }
             }

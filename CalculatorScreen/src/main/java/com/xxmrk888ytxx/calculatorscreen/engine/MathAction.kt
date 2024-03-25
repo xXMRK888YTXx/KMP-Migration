@@ -1,6 +1,6 @@
 package com.xxmrk888ytxx.calculatorscreen.engine
 
-import android.icu.math.BigDecimal
+import com.ionspin.kotlin.bignum.decimal.BigDecimal
 
 
 interface MathAction {

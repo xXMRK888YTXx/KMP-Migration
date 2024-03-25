@@ -1,6 +1,6 @@
 package com.xxmrk888ytxx.calculatorscreen.engine
 
-import android.icu.math.BigDecimal
+import com.ionspin.kotlin.bignum.decimal.BigDecimal
 import com.xxmrk888ytxx.calculatorscreen.exceptions.AnswerTooLargeException
 import com.xxmrk888ytxx.calculatorscreen.exceptions.InputException
 import com.xxmrk888ytxx.coreandroid.launchAndCancelChildren
@@ -56,7 +56,7 @@ class DefaultMathEngine(
         clear()
         val outputList = mutableListOf<MathSymbol>()
 
-        number.toString().forEach {
+        number.toStringExpanded().forEach {
             val numberType = when (it) {
                 '0' -> MathSymbol.NUMBER(0)
                 '1' -> MathSymbol.NUMBER(1)
@@ -70,7 +70,7 @@ class DefaultMathEngine(
                 '9' -> MathSymbol.NUMBER(9)
                 '.' -> MathSymbol.POINT
                 '-' -> MathSymbol.MINUS
-                else -> error("")
+                else -> error("$it not valid input ")
             }
 
             outputList.add(numberType)
@@ -93,7 +93,7 @@ class DefaultMathEngine(
 
         if (list.lastOrNull() is MathSymbol.POINT) isFloatNumber = false
 
-        _inputtedSymbols.update { list.toMutableList().dropLast(1) }
+        _inputtedSymbols.update { it.toMutableList().dropLast(1) }
 
         updateResult()
     }
@@ -112,14 +112,18 @@ class DefaultMathEngine(
 
     private fun updateResult() = calculationScope.launchAndCancelChildren {
         try {
-            val resultDeque = ArrayDeque<CalculationObject>()
             val symbols = _inputtedSymbols.value
+            if(symbols.isEmpty()) {
+                _result.update { MathResult.Stub }
+                return@launchAndCancelChildren
+            }
+            val resultDeque = ArrayDeque<CalculationObject>()
             var numberString = ""
 
             suspend fun addNumberInResultDeque() {
                 if (numberString.isEmpty()) return
 
-                resultDeque.add(CalculationObject.Number(BigDecimal(numberString)))
+                resultDeque.add(CalculationObject.Number(BigDecimal.parseString(numberString)))
                 numberString = ""
             }
 
@@ -158,7 +162,7 @@ class DefaultMathEngine(
                     }
 
                     is MathSymbol.PI -> {
-                        resultDeque.add(CalculationObject.Number(BigDecimal(Math.PI)))
+                        resultDeque.add(CalculationObject.Number(BigDecimal.fromDouble(Math.PI)))
                     }
 
                     else -> {
@@ -224,7 +228,7 @@ class DefaultMathEngine(
                 it.onResultUpdated(calculationResult,this@DefaultMathEngine)
             }
         } catch (e: MathException) {
-            if (e is InputException) return@launchAndCancelChildren
+            if (e is InputException) throw return@launchAndCancelChildren
 
             _result.update { MathResult.Error(e) }
         } catch (e: ArithmeticException) {

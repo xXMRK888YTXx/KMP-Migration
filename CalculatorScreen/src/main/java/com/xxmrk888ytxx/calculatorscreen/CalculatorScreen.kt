@@ -160,7 +160,7 @@ fun CalculatorScreen(
                             }
 
                             is MathResult.Result -> {
-                                screenState.mathResult.number.toString()
+                                screenState.mathResult.number.toStringExpanded()
                             }
 
                             MathResult.Stub -> ""

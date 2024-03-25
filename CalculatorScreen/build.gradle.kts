@@ -48,4 +48,5 @@ android {
 
 dependencies {
     implementation(project(ProjectModules.CoreCompose))
+    api("com.ionspin.kotlin:bignum:0.3.9")
 }
