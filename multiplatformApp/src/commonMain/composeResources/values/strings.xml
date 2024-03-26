@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="can_t_divide_by_0">Can\'t divide by 0</string>
+    <string name="can_t_divide_by_0">Can't divide by 0</string>
     <string name="answer_is_too_large">Answer is too large</string>
     <string name="unknown_error">Unknown error</string>
 </resources>

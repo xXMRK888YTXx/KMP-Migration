@@ -1,5 +1,6 @@
 package com.xxmrk888ytxx.securespace.presentation.navigation
 
+import com.xxmrk888ytxx.calculatorscreen.CalculatorViewModel
 import com.xxmrk888ytxx.firstconfigurationscreen.FirstConfigurationUiModel
 import com.xxmrk888ytxx.securespace.presentation.navigation.destination.CalculatorDestination
 import com.xxmrk888ytxx.securespace.presentation.navigation.destination.FirstConfigurationDestination
@@ -18,7 +19,8 @@ class DestinationFactoryImpl : DestinationFactory {
             }
 
             CalculatorDestination.id ->  {
-                CalculatorDestination()
+                val calculatorViewModel by inject<CalculatorViewModel>(CalculatorViewModel::class.java)
+                CalculatorDestination(calculatorViewModel)
             }
 
             else -> error("Destination with id = $id not found")

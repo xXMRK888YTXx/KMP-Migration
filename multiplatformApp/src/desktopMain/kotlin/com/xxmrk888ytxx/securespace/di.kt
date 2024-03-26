@@ -1,5 +1,9 @@
 package com.xxmrk888ytxx.securespace
 
+import com.xxmrk888ytxx.calculatorscreen.CalculatorViewModel
+import com.xxmrk888ytxx.calculatorscreen.contracts.MathEngineContract
+import com.xxmrk888ytxx.calculatorscreen.engine.DefaultMathEngine
+import com.xxmrk888ytxx.calculatorscreen.engine.MathEngine
 import com.xxmrk888ytxx.cryptomanager.CryptoManager
 import com.xxmrk888ytxx.firstconfigurationscreen.FirstConfigurationUiModel
 import com.xxmrk888ytxx.firstconfigurationscreen.contracts.FinishConfigurationContract
@@ -15,6 +19,7 @@ import com.xxmrk888ytxx.securespace.domain.CalculatorPasswordManager
 import com.xxmrk888ytxx.securespace.domain.FirstStartStateHolder
 import com.xxmrk888ytxx.securespace.domain.SecureSpaceManager
 import com.xxmrk888ytxx.securespace.domain.useCase.CreateSecureSpaceUseCase
+import com.xxmrk888ytxx.securespace.glue.calculatorScreen.MathEngineContractImpl
 import com.xxmrk888ytxx.securespace.glue.firstConfigurationScreen.FinishConfigurationContractImpl
 import com.xxmrk888ytxx.securespace.glue.firstConfigurationScreen.SetupCalculatorPasswordContractImpl
 import com.xxmrk888ytxx.securespace.glue.firstConfigurationScreen.SetupSecureSpacePasswordContractImpl
@@ -35,6 +40,10 @@ import java.io.File
 
 val navigatorScopeQualifier = object : Qualifier {
     override val value: QualifierValue = "navigatorScopeQualifier"
+}
+
+val mathScopeQualifier = object : Qualifier {
+    override val value: QualifierValue = "mathScopeQualifier"
 }
 
 
@@ -61,6 +70,7 @@ val domainModule = module {
     factory<PasswordCryptoManager> { PasswordCryptoManager.Factory.createCommon() }
     factory<CreateSecureSpaceUseCase> { CreateSecureSpaceUseCaseImpl(get(),get(),get()) }
     single<SecureSpaceManager> { DesktopSecureSpaceManager(get()) }
+    factory<MathEngineContract> { MathEngineContractImpl(get()) }
 }
 
 val firstConfigurationModule = module {
@@ -70,6 +80,12 @@ val firstConfigurationModule = module {
     factory<SetupSecureSpacePasswordContract> { SetupSecureSpacePasswordContractImpl(get()) }
 }
 
+val calculatorModule = module {
+    factory { CalculatorViewModel(get()) }
+    factory<MathEngine> { DefaultMathEngine(get(mathScopeQualifier))  }
+}
+
 val scopeModule = module {
     single(qualifier = navigatorScopeQualifier) { CoroutineScope(Dispatchers.Default + SupervisorJob()) }
+    single(qualifier = mathScopeQualifier) { CoroutineScope(Dispatchers.Default + SupervisorJob()) }
 }

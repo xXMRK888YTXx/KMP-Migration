@@ -45,6 +45,7 @@ import com.xxmrk888ytxx.calculatorscreen.models.ScreenState
 import com.xxmrk888ytxx.shared.mvi.UiEvent
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource
+import org.jetbrains.compose.resources.stringResource
 import securespace.calculatorscreen.generated.resources.Res
 import securespace.calculatorscreen.generated.resources.baseline_backspace_24
 import securespace.calculatorscreen.generated.resources.c
@@ -155,7 +156,7 @@ fun CalculatorScreen(
 
                     Text(
                         text = when (screenState.mathResult) {
-                            is CalculatorResult.Error -> screenState.mathResult.errorString
+                            is CalculatorResult.Error -> stringResource(screenState.mathResult.errorString)
 
                             is CalculatorResult.Result -> screenState.mathResult.resultString
 

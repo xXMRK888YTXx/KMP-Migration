@@ -22,12 +22,18 @@ object DesktopApplication : Navigator {
 
     suspend fun onApplicationStarted() {
         startKoin {
-            modules(applicationModule, scopeModule, firstConfigurationModule, domainModule)
+            modules(
+                applicationModule,
+                scopeModule,
+                firstConfigurationModule,
+                domainModule,
+                calculatorModule
+            )
         }
 
         val firstStartStateHolder by inject<FirstStartStateHolder>(FirstStartStateHolder::class.java)
 
-        if(firstStartStateHolder.isFirstStartOfApplication.first()) {
+        if (firstStartStateHolder.isFirstStartOfApplication.first()) {
             windowNavigator.addWindow(
                 AppWindow.CalculatorFlow.id,
                 FirstConfigurationDestination.id,
@@ -47,8 +53,11 @@ object DesktopApplication : Navigator {
     }
 
     override fun toCalculatorScreen() {
-        windowNavigator.addDestination(AppWindow.CalculatorFlow.id,CalculatorDestination.id)
-        windowNavigator.removeDestination(AppWindow.CalculatorFlow.id,FirstConfigurationDestination.id)
+        windowNavigator.addDestination(AppWindow.CalculatorFlow.id, CalculatorDestination.id)
+        windowNavigator.removeDestination(
+            AppWindow.CalculatorFlow.id,
+            FirstConfigurationDestination.id
+        )
     }
 
     override fun toSecureSpaceMainScreen() {

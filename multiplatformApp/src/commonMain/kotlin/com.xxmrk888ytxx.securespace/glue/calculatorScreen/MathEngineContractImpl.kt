@@ -1,41 +1,42 @@
-package com.xxmrk888ytxx.securespace.glue.CalculatorScreen
+package com.xxmrk888ytxx.securespace.glue.calculatorScreen
 
-import android.content.Context
 import com.xxmrk888ytxx.calculatorscreen.contracts.MathEngineContract
 import com.xxmrk888ytxx.calculatorscreen.engine.MathEngine
 import com.xxmrk888ytxx.calculatorscreen.engine.MathResult
 import com.xxmrk888ytxx.calculatorscreen.engine.MathSymbol
+import com.xxmrk888ytxx.calculatorscreen.exceptions.AnswerTooLargeException
+import com.xxmrk888ytxx.calculatorscreen.exceptions.DivineByZeroException
 import com.xxmrk888ytxx.calculatorscreen.models.CalculatorInputType
 import com.xxmrk888ytxx.calculatorscreen.models.CalculatorResult
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
-import javax.inject.Inject
+import org.jetbrains.compose.resources.ExperimentalResourceApi
+import org.jetbrains.compose.resources.stringResource
+import securespace.multiplatformapp.generated.resources.Res
+import securespace.multiplatformapp.generated.resources.answer_is_too_large
+import securespace.multiplatformapp.generated.resources.can_t_divide_by_0
+import securespace.multiplatformapp.generated.resources.unknown_error
 
-class MathEngineContractImpl @Inject constructor(
+class MathEngineContractImpl constructor(
     private val mathEngine: MathEngine,
-    private val context: Context,
 ) : MathEngineContract {
     override val input: Flow<String> =
         mathEngine.inputtedSymbols.map { list -> list.joinToString("") { it.stringSymbol } }
 
+    @OptIn(ExperimentalResourceApi::class)
     override val result: Flow<CalculatorResult> = mathEngine.result.map {
-        when(it) {
+        when (it) {
             is MathResult.Error -> {
+                val errorMessage = when (it.exception) {
+                    is DivineByZeroException -> Res.string.can_t_divide_by_0
+                    is AnswerTooLargeException -> Res.string.answer_is_too_large
+                    else -> Res.string.unknown_error
+                }
 
-                /**
-                 * val errorMessage = when (it.exception) {
-                 *                     is DivineByZeroException -> context.getString(R.string.can_t_divide_by_0)
-                 *
-                 *                     is AnswerTooLargeException -> context.getString(R.string.answer_is_too_large)
-                 *
-                 *                     else -> context.getString(R.string.unknown_error)
-                 *                 }
-                 *
-                 * */
-
-                CalculatorResult.Error("errorMessage")
+                CalculatorResult.Error(errorMessage)
             }
+
             is MathResult.Result -> CalculatorResult.Result(it.number.toStringExpanded())
             MathResult.Stub -> CalculatorResult.Stub
         }
@@ -63,7 +64,7 @@ class MathEngineContractImpl @Inject constructor(
             CalculatorInputType.EQUALS -> {
                 val result = mathEngine.result.first()
 
-                if(result !is MathResult.Result) return
+                if (result !is MathResult.Result) return
 
                 mathEngine.setInput(result.number)
             }
