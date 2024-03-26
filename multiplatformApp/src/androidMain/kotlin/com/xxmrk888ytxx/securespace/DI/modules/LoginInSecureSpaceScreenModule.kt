@@ -2,7 +2,7 @@ package com.xxmrk888ytxx.securespace.DI.modules
 
 import com.xxmrk888ytxx.logininsecurespacescreen.LoginInSecureSpaceViewModel
 import com.xxmrk888ytxx.logininsecurespacescreen.contracts.CheckPasswordFromSecureSpaceContract
-import com.xxmrk888ytxx.securespace.glue.LoginInSecureSpaceScreen.CheckPasswordFromSecureSpaceContractImpl
+import com.xxmrk888ytxx.securespace.glue.loginInSecureSpaceScreen.CheckPasswordFromSecureSpaceContractImpl
 import dagger.Binds
 import dagger.Module
 import dagger.Provides

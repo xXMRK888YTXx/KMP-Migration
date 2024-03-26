@@ -1,10 +1,9 @@
-package com.xxmrk888ytxx.securespace.glue.LoginInSecureSpaceScreen
+package com.xxmrk888ytxx.securespace.glue.loginInSecureSpaceScreen
 
 import com.xxmrk888ytxx.logininsecurespacescreen.contracts.CheckPasswordFromSecureSpaceContract
-import com.xxmrk888ytxx.securespace.UseCase.CheckPasswordForLoginInSecureSpaceUseCase.CheckPasswordForLoginInSecureSpaceUseCase
-import javax.inject.Inject
+import com.xxmrk888ytxx.securespace.domain.useCase.CheckPasswordForLoginInSecureSpaceUseCase
 
-class CheckPasswordFromSecureSpaceContractImpl @Inject constructor(
+class CheckPasswordFromSecureSpaceContractImpl constructor(
     private val checkPasswordForLoginInSecureSpaceUseCase: CheckPasswordForLoginInSecureSpaceUseCase
 ) : CheckPasswordFromSecureSpaceContract {
 

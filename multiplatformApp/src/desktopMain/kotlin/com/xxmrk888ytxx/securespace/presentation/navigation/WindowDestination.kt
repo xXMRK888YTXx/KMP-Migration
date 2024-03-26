@@ -1,5 +1,7 @@
 package com.xxmrk888ytxx.securespace.presentation.navigation
 
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.DpSize
 import com.xxmrk888ytxx.securespace.DesktopApplication
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -14,6 +16,8 @@ abstract class WindowDestination(
     val id: Any,
     val windowName: String,
 ) {
+
+    open val windowSize = DpSize(Dp(800F),Dp(600F))
 
     private val mutex = Mutex()
     private val destinations = MutableStateFlow(listOf(startDestination))

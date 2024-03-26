@@ -1,9 +1,9 @@
-package com.xxmrk888ytxx.securespace.domain.SessionKeyHolder
+package com.xxmrk888ytxx.securespace.data
 
-import com.xxmrk888ytxx.securespace.domain.SessionKeyHolder.models.SessionCryptoKey
-import javax.inject.Inject
+import com.xxmrk888ytxx.securespace.domain.SessionKeyHolder
+import com.xxmrk888ytxx.securespace.domain.models.SessionCryptoKey
 
-class SessionKeyHolderImpl @Inject constructor() : SessionKeyHolder {
+class SessionKeyHolderImpl constructor() : SessionKeyHolder {
 
     private var currentKey: SessionCryptoKey? = null
 

@@ -5,10 +5,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import com.xxmrk888ytxx.securespacemainscreen.models.ScreenState
 import com.xxmrk888ytxx.shared.mvi.UiEvent
+import dev.icerock.moko.resources.compose.stringResource
 import org.jetbrains.compose.resources.ExperimentalResourceApi
-import org.jetbrains.compose.resources.stringResource
-import securespace.securespacemainscreen.generated.resources.Res
-import securespace.securespacemainscreen.generated.resources.some_ui
 
 @OptIn(ExperimentalResourceApi::class)
 @Composable
@@ -17,6 +15,6 @@ fun SecureSpaceMainScreen(
     onEvent:(UiEvent) -> Unit
 ) {
     Scaffold {
-        Text(text = stringResource(Res.string.some_ui))
+        Text(text = stringResource(MR.strings.some_ui))
     }
 }

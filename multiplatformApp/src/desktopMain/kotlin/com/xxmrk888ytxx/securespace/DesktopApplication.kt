@@ -1,15 +1,19 @@
 package com.xxmrk888ytxx.securespace
 
 import com.xxmrk888ytxx.securespace.domain.FirstStartStateHolder
+import com.xxmrk888ytxx.securespace.domain.OpenSecureScopeByCalculatorInputManager
 import com.xxmrk888ytxx.securespace.presentation.navigation.AppWindow
 import com.xxmrk888ytxx.securespace.presentation.navigation.WindowNavigatorController
 import com.xxmrk888ytxx.securespace.presentation.navigation.destination.CalculatorDestination
+import com.xxmrk888ytxx.securespace.presentation.navigation.destination.EnterToSecureSpaceDestination
 import com.xxmrk888ytxx.securespace.presentation.navigation.destination.FirstConfigurationDestination
+import com.xxmrk888ytxx.securespace.presentation.navigation.destination.MainSecureSpaceDestination
 import com.xxmrk888ytxx.shared.Navigator
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
 import org.koin.core.context.startKoin
 import org.koin.java.KoinJavaComponent.inject
 
@@ -19,6 +23,10 @@ object DesktopApplication : Navigator {
 
     val windowNavigator by inject<WindowNavigatorController>(WindowNavigatorController::class.java)
 
+    private val openSecureScopeByCalculatorInputManager by inject<OpenSecureScopeByCalculatorInputManager>(
+        OpenSecureScopeByCalculatorInputManager::class.java
+    )
+
 
     suspend fun onApplicationStarted() {
         startKoin {
@@ -27,7 +35,9 @@ object DesktopApplication : Navigator {
                 scopeModule,
                 firstConfigurationModule,
                 domainModule,
-                calculatorModule
+                calculatorModule,
+                loginInSecureSpaceModule,
+                secureSpaceMainScreen
             )
         }
 
@@ -46,10 +56,20 @@ object DesktopApplication : Navigator {
                 ""
             )
         }
+
+        scope.launch {
+            openSecureScopeByCalculatorInputManager.openSecureSpaceEvent.collect {
+                toLoginInSecureSpaceScreen()
+            }
+        }
     }
 
     override fun toLoginInSecureSpaceScreen() {
-
+        windowNavigator.addWindow(
+            AppWindow.SecureSpaceFlow.id,
+            EnterToSecureSpaceDestination.id,
+            ""
+        )
     }
 
     override fun toCalculatorScreen() {
@@ -61,5 +81,10 @@ object DesktopApplication : Navigator {
     }
 
     override fun toSecureSpaceMainScreen() {
+        windowNavigator.addDestination(AppWindow.SecureSpaceFlow.id, MainSecureSpaceDestination.id)
+        windowNavigator.removeDestination(
+            AppWindow.SecureSpaceFlow.id,
+            EnterToSecureSpaceDestination.id
+        )
     }
 }

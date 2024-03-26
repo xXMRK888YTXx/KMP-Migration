@@ -1,6 +1,7 @@
-package com.xxmrk888ytxx.securespace.domain.SessionKeyHolder
+package com.xxmrk888ytxx.securespace.domain
 
-import com.xxmrk888ytxx.securespace.domain.SessionKeyHolder.models.SessionCryptoKey
+import com.xxmrk888ytxx.securespace.domain.models.SessionCryptoKey
+
 
 interface SessionKeyHolder {
 

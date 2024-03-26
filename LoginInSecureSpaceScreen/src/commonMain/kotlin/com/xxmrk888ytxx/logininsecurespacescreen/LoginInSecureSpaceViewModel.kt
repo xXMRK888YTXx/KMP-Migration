@@ -7,13 +7,11 @@ import com.xxmrk888ytxx.logininsecurespacescreen.models.LocalUiEvent
 import com.xxmrk888ytxx.logininsecurespacescreen.models.ScreenState
 import com.xxmrk888ytxx.shared.mvi.MultiplatformViewModel
 import com.xxmrk888ytxx.shared.mvi.UiEvent
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class LoginInSecureSpaceViewModel(
     private val checkPasswordFromSecureSpaceContract: CheckPasswordFromSecureSpaceContract
@@ -30,9 +28,7 @@ class LoginInSecureSpaceViewModel(
             is LocalUiEvent.UnlockEvent -> {
                 viewModelScope.launch {
                     if(checkPasswordFromSecureSpaceContract.checkPassword(inputTextState.value.text)) {
-                        withContext(Dispatchers.Main) {
-                            event.navigator.toSecureSpaceMainScreen()
-                        }
+                        event.navigator.toSecureSpaceMainScreen()
                     } else {
                         event.snackbarHost.showSnackbar("Incorrect password")
                     }

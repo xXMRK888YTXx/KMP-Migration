@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import com.xxmrk888ytxx.coreandroid.runOnUiThread
-import com.xxmrk888ytxx.securespace.domain.OpenSecureScopeByCalculatorInputManager.OpenSecureScopeByCalculatorInputManager
+import com.xxmrk888ytxx.securespace.domain.OpenSecureScopeByCalculatorInputManager
 import com.xxmrk888ytxx.shared.Navigator
 import kotlinx.coroutines.launch
 import javax.inject.Inject

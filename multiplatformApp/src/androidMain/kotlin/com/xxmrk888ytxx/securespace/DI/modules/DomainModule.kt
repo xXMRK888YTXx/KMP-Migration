@@ -5,12 +5,12 @@ import com.xxmrk888ytxx.securespace.domain.CalculatorPasswordManager
 import com.xxmrk888ytxx.securespace.data.CalculatorPasswordManagerImpl
 import com.xxmrk888ytxx.securespace.domain.FirstStartStateHolder
 import com.xxmrk888ytxx.securespace.data.FirstStartStateHolderImpl
-import com.xxmrk888ytxx.securespace.domain.OpenSecureScopeByCalculatorInputManager.OpenSecureScopeByCalculatorInputManager
-import com.xxmrk888ytxx.securespace.domain.OpenSecureScopeByCalculatorInputManager.OpenSecureScopeByCalculatorInputManagerImpl
+import com.xxmrk888ytxx.securespace.domain.OpenSecureScopeByCalculatorInputManager
+import com.xxmrk888ytxx.securespace.data.OpenSecureScopeByCalculatorInputManagerImpl
 import com.xxmrk888ytxx.securespace.domain.SecureSpaceManager
 import com.xxmrk888ytxx.securespace.domain.SecureSpaceManager.AndroidSecureSpaceManagerImpl
-import com.xxmrk888ytxx.securespace.domain.SessionKeyHolder.SessionKeyHolder
-import com.xxmrk888ytxx.securespace.domain.SessionKeyHolder.SessionKeyHolderImpl
+import com.xxmrk888ytxx.securespace.domain.SessionKeyHolder
+import com.xxmrk888ytxx.securespace.data.SessionKeyHolderImpl
 import dagger.Binds
 import dagger.Module
 

@@ -1,4 +1,4 @@
-package com.xxmrk888ytxx.securespace.UseCase.CheckPasswordForLoginInSecureSpaceUseCase
+package com.xxmrk888ytxx.securespace.domain.useCase
 
 interface CheckPasswordForLoginInSecureSpaceUseCase {
 

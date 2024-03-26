@@ -1,18 +1,18 @@
-package com.xxmrk888ytxx.securespace.UseCase.CheckPasswordForLoginInSecureSpaceUseCase
+package com.xxmrk888ytxx.securespace.data
 
 import com.xxmrk888ytxx.cryptomanager.CryptoManager
 import com.xxmrk888ytxx.passwordcryptomanager.PasswordCryptoManager
-import com.xxmrk888ytxx.securespace.UseCase.CheckPasswordForLoginInSecureSpaceUseCase.exceptions.CheckVerificationNotMatchExpected
 import com.xxmrk888ytxx.securespace.domain.SecureSpaceManager
-import com.xxmrk888ytxx.securespace.domain.SessionKeyHolder.SessionKeyHolder
-import com.xxmrk888ytxx.securespace.domain.SessionKeyHolder.models.SessionCryptoKey
+import com.xxmrk888ytxx.securespace.domain.SessionKeyHolder
+import com.xxmrk888ytxx.securespace.domain.models.SessionCryptoKey
+import com.xxmrk888ytxx.securespace.domain.useCase.CheckPasswordForLoginInSecureSpaceUseCase
+import com.xxmrk888ytxx.securespace.domain.useCase.exceptions.CheckVerificationNotMatchExpected
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.io.FileInputStream
 import javax.crypto.BadPaddingException
-import javax.inject.Inject
 
-class CheckPasswordForLoginInSecureSpaceUseCaseImpl @Inject constructor(
+class CheckPasswordForLoginInSecureSpaceUseCaseImpl constructor(
     private val secureSpaceManager: SecureSpaceManager,
     private val sessionKeyHolder: SessionKeyHolder,
     private val androidCryptoManager: CryptoManager,

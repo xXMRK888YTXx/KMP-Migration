@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.jetbrainsCompose)
+    id("dev.icerock.mobile.multiplatform-resources")
 }
 
 kotlin {
@@ -94,4 +95,8 @@ android {
         }
         resources.excludes.add("META-INF/*")
     }
+}
+
+multiplatformResources {
+    multiplatformResourcesPackage = "com.xxmrk888ytxx.securespacemainscreen"
 }

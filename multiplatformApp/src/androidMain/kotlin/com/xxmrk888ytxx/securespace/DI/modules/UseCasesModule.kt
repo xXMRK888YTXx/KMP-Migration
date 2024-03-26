@@ -1,7 +1,7 @@
 package com.xxmrk888ytxx.securespace.DI.modules
 
-import com.xxmrk888ytxx.securespace.UseCase.CheckPasswordForLoginInSecureSpaceUseCase.CheckPasswordForLoginInSecureSpaceUseCase
-import com.xxmrk888ytxx.securespace.UseCase.CheckPasswordForLoginInSecureSpaceUseCase.CheckPasswordForLoginInSecureSpaceUseCaseImpl
+import com.xxmrk888ytxx.securespace.domain.useCase.CheckPasswordForLoginInSecureSpaceUseCase
+import com.xxmrk888ytxx.securespace.data.CheckPasswordForLoginInSecureSpaceUseCaseImpl
 import com.xxmrk888ytxx.securespace.domain.useCase.CreateSecureSpaceUseCase
 import com.xxmrk888ytxx.securespace.data.useCase.CreateSecureSpaceUseCaseImpl
 import dagger.Binds
