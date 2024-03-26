@@ -2,7 +2,7 @@ package com.xxmrk888ytxx.cryptomanager
 
 import java.security.MessageDigest
 
-open class DefaultCryptoManager() : CryptoManager {
+open class DefaultCryptoManager : CryptoManager {
     override fun encryptData(bytes: ByteArray): ByteArray {
         return bytes.apply { reverse() }
     }

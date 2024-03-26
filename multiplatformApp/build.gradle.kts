@@ -17,26 +17,11 @@ kotlin {
     }
 
     jvm("desktop")
-    
-    listOf(
-        iosX64(),
-        iosArm64(),
-        iosSimulatorArm64()
-    ).forEach { iosTarget ->
-        iosTarget.binaries.framework {
-            baseName = "ComposeApp"
-            isStatic = true
-        }
-    }
-    
     sourceSets {
         val desktopMain by getting
         
         androidMain.dependencies {
             implementation(project(ProjectModules.CalculatorScreen))
-            implementation(project(ProjectModules.PreferencesStorage))
-            implementation(project(ProjectModules.CryptoManager))
-            implementation(project(ProjectModules.PasswordCryptoManager))
             implementation(project(ProjectModules.SecureSpaceMainScreen))
 
             //Navigation
@@ -59,6 +44,9 @@ kotlin {
             implementation(project(ProjectModules.SecureSpaceMainScreen))
             implementation(project(ProjectModules.MathEngine))
             implementation(project(ProjectModules.CalculatorScreen))
+            implementation(project(ProjectModules.PreferencesStorage))
+            implementation(project(ProjectModules.CryptoManager))
+            implementation(project(ProjectModules.PasswordCryptoManager))
             val koin = "3.2.0"
             implementation("io.insert-koin:koin-core:${koin}")
 

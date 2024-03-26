@@ -6,7 +6,7 @@ interface PasswordCryptoManager {
 
     suspend fun decrypt(bytes: ByteArray,password: ByteArray) : ByteArray
 
-    companion object {
-        fun create() : PasswordCryptoManager = PasswordCryptoManagerImpl()
+    object Factory {
+        fun createCommon() : PasswordCryptoManager = CommonPasswordCryptoManager()
     }
 }

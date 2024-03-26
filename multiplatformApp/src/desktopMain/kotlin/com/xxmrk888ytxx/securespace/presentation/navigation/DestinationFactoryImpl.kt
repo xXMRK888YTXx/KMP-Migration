@@ -1,6 +1,7 @@
 package com.xxmrk888ytxx.securespace.presentation.navigation
 
 import com.xxmrk888ytxx.firstconfigurationscreen.FirstConfigurationUiModel
+import com.xxmrk888ytxx.securespace.presentation.navigation.destination.CalculatorDestination
 import com.xxmrk888ytxx.securespace.presentation.navigation.destination.FirstConfigurationDestination
 import org.koin.java.KoinJavaComponent.inject
 
@@ -14,6 +15,10 @@ class DestinationFactoryImpl : DestinationFactory {
                 )
 
                 FirstConfigurationDestination(firstConfigurationUiModel)
+            }
+
+            CalculatorDestination.id ->  {
+                CalculatorDestination()
             }
 
             else -> error("Destination with id = $id not found")

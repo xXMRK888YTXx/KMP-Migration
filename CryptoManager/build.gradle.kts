@@ -13,6 +13,9 @@ kotlin {
         }
     }
 
+    jvm("desktop")
+
+
     sourceSets {
         commonMain.dependencies {
             implementation(project(ProjectModules.Shared))

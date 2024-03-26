@@ -10,7 +10,7 @@ import androidx.navigation.compose.rememberNavController
 import com.xxmrk888ytxx.calculatorscreen.CalculatorViewModel
 import com.xxmrk888ytxx.firstconfigurationscreen.FirstConfigurationUiModel
 import com.xxmrk888ytxx.logininsecurespacescreen.LoginInSecureSpaceViewModel
-import com.xxmrk888ytxx.securespace.domain.FirstStartStateHolder.FirstStartStateHolder
+import com.xxmrk888ytxx.securespace.domain.FirstStartStateHolder
 import com.xxmrk888ytxx.securespace.extensions.appComponent
 import com.xxmrk888ytxx.securespace.extensions.setContentWithTheme
 import com.xxmrk888ytxx.securespacemainscreen.SecureSpaceMainViewModel

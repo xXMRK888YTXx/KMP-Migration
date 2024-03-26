@@ -15,3 +15,5 @@
 local.properties
 /multiplatformApp/build/
 /shared/build/
+/multiplatformApp/PreferencesStorage.preferences_pb
+/multiplatformApp/data/

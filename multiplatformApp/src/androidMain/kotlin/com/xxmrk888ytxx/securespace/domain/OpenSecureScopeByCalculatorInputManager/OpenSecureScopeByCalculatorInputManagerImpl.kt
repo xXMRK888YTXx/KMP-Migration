@@ -5,7 +5,7 @@ import com.xxmrk888ytxx.calculatorscreen.engine.MathEngine
 import com.xxmrk888ytxx.calculatorscreen.engine.MathSymbol
 import com.xxmrk888ytxx.mathengine.CalculatorEventInterceptor
 import com.xxmrk888ytxx.securespace.DI.qualifiers.CheckCalculatorScope
-import com.xxmrk888ytxx.securespace.domain.CalculatorPasswordManager.CalculatorPasswordManager
+import com.xxmrk888ytxx.securespace.domain.CalculatorPasswordManager
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow

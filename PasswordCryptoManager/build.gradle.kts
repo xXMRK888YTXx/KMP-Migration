@@ -16,20 +16,10 @@ kotlin {
         }
     }
 
-    listOf(
-        iosX64(),
-        iosArm64(),
-        iosSimulatorArm64()
-    ).forEach {
-        it.binaries.framework {
-            baseName = "passwordcryptomanager"
-            isStatic = true
-        }
-    }
-
     sourceSets {
         commonMain.dependencies {
             implementation(project(ProjectModules.Shared))
+            implementation("com.ionspin.kotlin:multiplatform-crypto-libsodium-bindings:0.9.0")
         }
     }
 }

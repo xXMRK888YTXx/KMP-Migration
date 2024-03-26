@@ -5,13 +5,10 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.window.Window
 import com.xxmrk888ytxx.securespace.presentation.navigation.Destination
-import org.koin.core.context.startKoin
+import kotlinx.coroutines.runBlocking
 
-fun main() {
-    startKoin {
-        modules(applicationModule, scopeModule, firstConfigurationModule)
-    }
-    DesktopApplication.onApplicationPrepared()
+fun main() = runBlocking {
+    DesktopApplication.onApplicationStarted()
     ui()
 }
 

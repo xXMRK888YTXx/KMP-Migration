@@ -3,7 +3,7 @@ package com.xxmrk888ytxx.securespace.UseCase.CheckPasswordForLoginInSecureSpaceU
 import com.xxmrk888ytxx.cryptomanager.CryptoManager
 import com.xxmrk888ytxx.passwordcryptomanager.PasswordCryptoManager
 import com.xxmrk888ytxx.securespace.UseCase.CheckPasswordForLoginInSecureSpaceUseCase.exceptions.CheckVerificationNotMatchExpected
-import com.xxmrk888ytxx.securespace.domain.SecureSpaceManager.SecureSpaceManager
+import com.xxmrk888ytxx.securespace.domain.SecureSpaceManager
 import com.xxmrk888ytxx.securespace.domain.SessionKeyHolder.SessionKeyHolder
 import com.xxmrk888ytxx.securespace.domain.SessionKeyHolder.models.SessionCryptoKey
 import kotlinx.coroutines.Dispatchers
@@ -34,7 +34,8 @@ class CheckPasswordForLoginInSecureSpaceUseCaseImpl @Inject constructor(
 
         return@withContext try {
 
-            if(!passwordCryptoManager.decrypt(dataForCheckSecureSpacePassword,passwordHash).contentEquals(SecureSpaceManager.CHECK_VERIFICATION_KEY)) throw CheckVerificationNotMatchExpected()
+            if(!passwordCryptoManager.decrypt(dataForCheckSecureSpacePassword,passwordHash).contentEquals(
+                    SecureSpaceManager.CHECK_VERIFICATION_KEY)) throw CheckVerificationNotMatchExpected()
 
             sessionKeyHolder.setupKey(SessionCryptoKey(passwordHash))
             true
