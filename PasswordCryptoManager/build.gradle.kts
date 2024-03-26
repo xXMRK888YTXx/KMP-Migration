@@ -1,6 +1,37 @@
 plugins {
-    id("com.android.library")
-    id("org.jetbrains.kotlin.android")
+    alias(libs.plugins.kotlinMultiplatform)
+    alias(libs.plugins.androidLibrary)
+    alias(libs.plugins.jetbrainsCompose)
+}
+
+kotlin {
+    jvm("desktop")
+
+
+    androidTarget {
+        compilations.all {
+            kotlinOptions {
+                jvmTarget = "17"
+            }
+        }
+    }
+
+    listOf(
+        iosX64(),
+        iosArm64(),
+        iosSimulatorArm64()
+    ).forEach {
+        it.binaries.framework {
+            baseName = "passwordcryptomanager"
+            isStatic = true
+        }
+    }
+
+    sourceSets {
+        commonMain.dependencies {
+            implementation(project(ProjectModules.Shared))
+        }
+    }
 }
 
 android {
@@ -35,23 +66,10 @@ android {
         sourceCompatibility = Config.sourceCompatibility
         targetCompatibility = Config.targetCompatibility
     }
-    kotlinOptions {
-        jvmTarget = Config.jvmTarget
-    }
     packaging {
+        resources {
+            excludes += "/META-INF/{AL2.0,LGPL2.1}"
+        }
         resources.excludes.add("META-INF/*")
     }
-}
-
-dependencies {
-
-    implementation(project(ProjectModules.CoreAndroid))
-
-    androidTestImplementation (Deps.InstrumentalTest.espresso)
-    androidTestImplementation (Deps.InstrumentalTest.testRunner)
-    androidTestImplementation (Deps.InstrumentalTest.testCore)
-    androidTestImplementation (Deps.InstrumentalTest.jUnit)
-    androidTestImplementation (Deps.InstrumentalTest.testRules)
-    androidTestImplementation(Deps.TestAndroid.MockkAndroid)
-    androidTestImplementation(Deps.TestAndroid.MockkAgent)
 }

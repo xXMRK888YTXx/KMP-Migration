@@ -5,15 +5,12 @@ import java.security.SecureRandom
 import javax.crypto.Cipher
 import javax.crypto.spec.IvParameterSpec
 import javax.crypto.spec.SecretKeySpec
-import kotlin.text.Charsets.UTF_8
 
 internal class PasswordCryptoManagerImpl : PasswordCryptoManager {
 
     private val cryptMethod = "AES/GCM/NoPadding"
 
-
     private val ivSize = 32
-
 
     override suspend fun encrypt(bytes: ByteArray, password: ByteArray): ByteArray {
         val cipher = Cipher.getInstance(cryptMethod)
@@ -61,7 +58,7 @@ internal class PasswordCryptoManagerImpl : PasswordCryptoManager {
             hashString.append(h)
         }
 
-        return hashString.toString().take(32).toByteArray(UTF_8)
+        return hashString.toString().take(32).encodeToByteArray()
     }
 
 
