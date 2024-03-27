@@ -1,46 +1,67 @@
 package com.xxmrk888ytxx.securespace.DI.modules
 
+import android.content.Context
+import com.xxmrk888ytxx.cryptomanager.CryptoManager
+import com.xxmrk888ytxx.preferencesstorage.PreferencesStorage
+import com.xxmrk888ytxx.securespace.DI.qualifiers.CheckCalculatorScope
 import com.xxmrk888ytxx.securespace.DI.scopes.AppScope
-import com.xxmrk888ytxx.securespace.domain.CalculatorPasswordManager
 import com.xxmrk888ytxx.securespace.data.CalculatorPasswordManagerImpl
-import com.xxmrk888ytxx.securespace.domain.FirstStartStateHolder
 import com.xxmrk888ytxx.securespace.data.FirstStartStateHolderImpl
-import com.xxmrk888ytxx.securespace.domain.OpenSecureScopeByCalculatorInputManager
 import com.xxmrk888ytxx.securespace.data.OpenSecureScopeByCalculatorInputManagerImpl
-import com.xxmrk888ytxx.securespace.domain.SecureSpaceManager
-import com.xxmrk888ytxx.securespace.domain.SecureSpaceManager.AndroidSecureSpaceManagerImpl
-import com.xxmrk888ytxx.securespace.domain.SessionKeyHolder
 import com.xxmrk888ytxx.securespace.data.SessionKeyHolderImpl
-import dagger.Binds
+import com.xxmrk888ytxx.securespace.domain.CalculatorPasswordManager
+import com.xxmrk888ytxx.securespace.domain.FirstStartStateHolder
+import com.xxmrk888ytxx.securespace.domain.OpenSecureScopeByCalculatorInputManager
+import com.xxmrk888ytxx.securespace.domain.SecureSpaceManager
+import com.xxmrk888ytxx.securespace.data.AndroidSecureSpaceManagerImpl
+import com.xxmrk888ytxx.securespace.domain.SessionKeyHolder
 import dagger.Module
+import dagger.Provides
+import kotlinx.coroutines.CoroutineScope
 
 @Module
 interface DomainModule {
 
-    @Binds
-    @AppScope
-    fun bindOpenSecureScopeByCalculatorInputManager(
-        openSecureScopeByCalculatorInputManagerImpl: OpenSecureScopeByCalculatorInputManagerImpl
-    ) : OpenSecureScopeByCalculatorInputManager
+    companion object {
+        @Provides
+        @AppScope
+        fun bindOpenSecureScopeByCalculatorInputManager(
+            calculatorInputManager: CalculatorPasswordManager,
+            @CheckCalculatorScope checkCalculatorScope: CoroutineScope,
+        ): OpenSecureScopeByCalculatorInputManager {
+            return OpenSecureScopeByCalculatorInputManagerImpl(
+                calculatorInputManager,
+                checkCalculatorScope
+            )
+        }
 
-    @Binds
-    fun bindCalculatorPasswordManager(
-        calculatorPasswordManagerImpl: CalculatorPasswordManagerImpl
-    ) : CalculatorPasswordManager
+        @Provides
+        fun bindFirstStartStateHolder(
+            preferencesStorage: PreferencesStorage,
+        ): FirstStartStateHolder {
+            return FirstStartStateHolderImpl(preferencesStorage)
+        }
 
-    @Binds
-    fun bindFirstStartStateHolder(
-        firstStartStateHolderImpl: FirstStartStateHolderImpl
-    ) : FirstStartStateHolder
+        @Provides
+        fun bindCalculatorPasswordManager(
+            preferencesStorage: PreferencesStorage,
+            cryptoManager: CryptoManager,
+        ): CalculatorPasswordManager {
+            return CalculatorPasswordManagerImpl(preferencesStorage, cryptoManager)
+        }
 
-    @Binds
-    @AppScope
-    fun bindSessionKeyHolder(
-        sessionKeyHolderImpl: SessionKeyHolderImpl
-    ) : SessionKeyHolder
+        @Provides
+        @AppScope
+        fun bindSessionKeyHolder(
+        ): SessionKeyHolder {
+            return SessionKeyHolderImpl()
+        }
 
-    @Binds
-    fun bindSecureSpaceManager(
-        androidSecureSpaceManagerImpl: AndroidSecureSpaceManagerImpl
-    ) : SecureSpaceManager
+        @Provides
+        fun bindSecureSpaceManager(
+            context: Context,
+        ): SecureSpaceManager {
+            return AndroidSecureSpaceManagerImpl(context)
+        }
+    }
 }

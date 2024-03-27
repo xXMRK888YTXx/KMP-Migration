@@ -1,4 +1,4 @@
-package com.xxmrk888ytxx.securespace.domain.SecureSpaceManager
+package com.xxmrk888ytxx.securespace.data
 
 import android.content.Context
 import com.xxmrk888ytxx.securespace.domain.SecureSpaceManager
